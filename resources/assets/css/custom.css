@@ -1,0 +1,25 @@
+.menu-item-label {
+    font-weight: 300;
+}
+
+#particles-js{
+    z-index: 1;
+    position: absolute;
+    background: #1a2432 !important;
+}
+
+#div-login-form {
+    z-index: 2;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+}
+
+.login-wrapper {
+    width: 35%;
+    padding: 20px;
+}
+
+.tx-span-error {
+    color: #d70206;
+}

@@ -13,3 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/build/js')
    .sass('resources/sass/app.scss', 'public/build/css');
+
+mix.styles('resources/assets/css/global.css', 'public/build/css/global.css');
+mix.styles('resources/assets/css/custom.css', 'public/build/css/custom.css');
+
+mix.js('resources/assets/js/global.js', 'public/build/js/global.js');
+mix.js('resources/assets/js/ResizeSensor.js', 'public/build/js/ResizeSensor.js');
+mix.js('resources/assets/js/dashboard.js', 'public/build/js/dashboard.js');
