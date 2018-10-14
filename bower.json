@@ -32,6 +32,7 @@
     "chart.js": "chartjs#2.7.1",
     "rickshaw": "1.6.2",
     "chartist": "^0.11.0",
-    "peity": "3.2.1"
+    "peity": "3.2.1",
+    "particles.js": "particles-js#^2.0.0"
   }
 }

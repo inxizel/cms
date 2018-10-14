@@ -174,8 +174,7 @@
                     <ul class="list-unstyled user-profile-nav">
                         <li><a href=""><i class="icon ion-ios-person"></i> @lang('global.profile')</a></li>
                         <li><a href=""><i class="icon ion-ios-gear"></i> @lang('global.setting')</a></li>
-                        <li><a href=""><i class="icon ion-power"></i> @lang('global.sign_out')</a></li>
-                        {{--<li><a href="{{ route('user.logout') }}"><i class="icon ion-power"></i> @lang('global.sign_out')</a></li>--}}
+                        <li><a href="{{ route('user.logout') }}"><i class="icon ion-power"></i> @lang('global.sign_out')</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->

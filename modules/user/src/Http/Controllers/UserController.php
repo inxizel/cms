@@ -1,17 +1,12 @@
 <?php
 
-namespace Zent\Layout\Http\Controllers;
+namespace Zent\User\Http\Controllers;
 
+use Zent\User\Models\User;
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Session;
-
-class LayoutController extends Controller
+class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth.user');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +14,7 @@ class LayoutController extends Controller
      */
     public function index()
     {
-        return view('layout::backend.dashboard');
+        return view('user::backend.index');
     }
 
     /**
@@ -82,21 +77,14 @@ class LayoutController extends Controller
     {
         //
     }
-
     /**
      * Comment here.
      *
+     * @return here
      * @author ThanhTung
      */
     public function home()
     {
-        return view('layout::frontend.index');
+        return view('user::frontend.index');
     }
-
-    public function changeLanguage($locale)
-    {
-        Session::put('language', $locale);
-        return back();
-    }
-
 }
