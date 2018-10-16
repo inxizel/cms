@@ -61,5 +61,7 @@ return [
     'delete_success'    =>  'Xoá thành công !',
     'are_you_sure_to_delete'    =>  'Bạn có chắc chắn muốn xoá ?',
     'cancle'    =>  'Huỷ bỏ',
-    'confirm'   =>  'Đồng ý'
+    'confirm'   =>  'Đồng ý',
+    'name'  =>  'Tên',
+    'not_records'   =>  'Không có bản ghi dữ liệu nào'
 ];

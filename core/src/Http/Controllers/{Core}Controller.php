@@ -2,6 +2,7 @@
 
 namespace Zent\{Core}\Http\Controllers;
 
+use Illuminate\Support\Facades\Session;
 use Zent\{Core}\Models\{Core};
 use Illuminate\Http\Request;
 
@@ -14,7 +15,9 @@ class {Core}Controller extends Controller
      */
     public function index()
     {
-        return view('{core}::backend.index');
+        ${core}s = {Core}::orderBy('id', 'desc')->get();
+
+        return view('{core}::backend.index', compact('{core}s'));
     }
 
     /**
@@ -24,7 +27,7 @@ class {Core}Controller extends Controller
      */
     public function create()
     {
-        //
+        return view('{core}::backend.create');
     }
 
     /**
@@ -35,7 +38,11 @@ class {Core}Controller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {Core}::create($request->all());
+
+        Session::flash('create_success', trans('global.create_success'));
+
+        return redirect()->route('{core}.index');
     }
 
     /**
@@ -53,9 +60,11 @@ class {Core}Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        //
+        ${core} = {Core}::find($id);
+
+        return view('{core}::backend.edit', compact('{core}', 'id'));
     }
 
     /**
@@ -63,9 +72,13 @@ class {Core}Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+        {Core}::find($id)->update($request->all());
+
+        Session::flash('update_success', trans('global.update_success'));
+
+        return redirect()->route('{core}.index');
     }
 
     /**
@@ -75,13 +88,16 @@ class {Core}Controller extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        {Core}::find($request->id)->delete();
+
+        Session::flash('delete_success', trans('global.delete_success'));
+
+        return response()->json([ 'err' => false ]);
     }
+
     /**
-     * Comment here.
+     * Return view front end.
      *
-     * @return here
-     * @author ThanhTung
      */
     public function home()
     {
