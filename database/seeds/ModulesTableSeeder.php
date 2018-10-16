@@ -25,5 +25,9 @@ class ModulesTableSeeder extends Seeder
         Module::create([
             'name'  =>  'customer'
         ]);
+
+        Module::create([
+            'name'  =>  'module'
+        ]);
     }
 }

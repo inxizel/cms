@@ -20,3 +20,15 @@ mix.styles('resources/assets/css/custom.css', 'public/build/css/custom.css');
 mix.js('resources/assets/js/global.js', 'public/build/js/global.js');
 mix.js('resources/assets/js/ResizeSensor.js', 'public/build/js/ResizeSensor.js');
 mix.js('resources/assets/js/dashboard.js', 'public/build/js/dashboard.js');
+mix.js('resources/assets/js/module/module.js', 'public/build/js/module/module.js');
+
+//
+const WebpackShellPlugin = require('webpack-shell-plugin');
+
+// Add shell command plugin configured to create JavaScript language file
+mix.webpackConfig({
+    plugins:
+        [
+            new WebpackShellPlugin({onBuildStart:['php artisan lang:js --quiet'], onBuildEnd:[]})
+        ]
+});
