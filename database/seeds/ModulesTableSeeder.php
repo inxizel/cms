@@ -15,19 +15,27 @@ class ModulesTableSeeder extends Seeder
         Module::truncate();
 
         Module::create([
-            'name'  =>  'layout'
+            'name'  =>  'layout',
+            'display_name'  =>  'layout',
+            'module_category_id'    => 2
         ]);
 
         Module::create([
-            'name'  =>  'user'
+            'name'  =>  'user',
+            'display_name'  =>  'user',
+            'module_category_id'    =>  2
         ]);
 
         Module::create([
-            'name'  =>  'customer'
+            'name'  =>  'customer',
+            'display_name'  =>  'customer',
+            'module_category_id'    =>  2
         ]);
 
         Module::create([
-            'name'  =>  'module'
+            'name'  =>  'module',
+            'display_name'  =>  'module',
+            'module_category_id'    =>  2
         ]);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ModuleCategory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,5 +16,6 @@ class DatabaseSeeder extends Seeder
          $this->call(UsersTableSeeder::class);
          $this->call(OptionsTableSeeder::class);
          $this->call(OptionValuesTableSeeder::class);
+         $this->call(ModuleCategoriesTableSeeder::class);
     }
 }

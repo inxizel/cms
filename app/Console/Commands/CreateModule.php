@@ -8,6 +8,7 @@ use App\Models\Module;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Composer;
 
 class CreateModule extends Command
 {
@@ -25,14 +26,17 @@ class CreateModule extends Command
      */
     protected $description = 'Create new module';
 
+    protected $composer;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Composer $composer)
     {
         parent::__construct();
+
+        $this->composer = $composer;
     }
 
     /**
@@ -68,6 +72,8 @@ class CreateModule extends Command
 
             Artisan::call('cache:clear');
             Artisan::call('clear-compiled');
+
+            exec('composer dump-autoload');
 
             return true;
 
@@ -237,8 +243,9 @@ class CreateModule extends Command
 
         try {
 
-            Module::updateOrCreate([
-                'name'  =>  $name
+            Module::create([
+                'name'  =>  $name,
+                'display_name'  =>  $name
             ]);
 
             DB::commit();

@@ -162,7 +162,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ModuleServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class
+        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
+        App\Providers\MenuServiceProvider::class,
 
     ],
 

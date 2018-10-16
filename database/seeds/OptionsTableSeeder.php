@@ -12,11 +12,6 @@ class OptionsTableSeeder extends Seeder
      */
     public function run()
     {
-        Option::truncate();
-
-        Option::create([
-            'code'  =>  'ModuleCate',
-            'name'  =>  'Nhóm module'
-        ]);
+        //
     }
 }

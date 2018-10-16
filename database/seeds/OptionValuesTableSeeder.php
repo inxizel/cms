@@ -12,24 +12,6 @@ class OptionValuesTableSeeder extends Seeder
      */
     public function run()
     {
-        OptionValue::truncate();
-
-        OptionValue::create([
-            'option_id' =>  1,
-            'name'  =>  'Chức năng',
-            'value' =>  0
-        ]);
-
-        OptionValue::create([
-            'option_id' =>  1,
-            'name'  =>  'Quản lý',
-            'value' =>  0
-        ]);
-
-        OptionValue::create([
-            'option_id' =>  1,
-            'name'  =>  'Công cụ',
-            'value' =>  0
-        ]);
+       //
     }
 }

@@ -2,6 +2,7 @@
 
 @section('breadcrumb')
     <a class="breadcrumb-item active" href="{{ route('{core}.index') }}">{Core}</a>
+    {{-- use lang in file global --}}
 @endsection
 
 @section('content')
