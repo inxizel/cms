@@ -23,3 +23,21 @@
 .tx-span-error {
     color: #d70206;
 }
+
+.br-section-wrapper {
+    padding: 30px;
+}
+
+.btn {
+    padding: 0.4rem;
+    cursor: pointer;
+}
+
+.table th {
+    text-align: center;
+}
+
+#toast-container {
+    margin-top: 68px;
+    margin-right: 17px;
+}

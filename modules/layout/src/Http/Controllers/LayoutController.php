@@ -3,8 +3,9 @@
 namespace Zent\Layout\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Session;
+use App\Models\Module;
+use View;
 
 class LayoutController extends Controller
 {

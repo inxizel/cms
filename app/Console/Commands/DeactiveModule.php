@@ -46,7 +46,9 @@ class DeactiveModule extends Command
             if (Module::checkModuleExistsByNameInFolder($name)) {
 
                 Module::deactivateModuleByName($name);
+
                 $this->info(Module::notifyDeactivateModule($name));
+
                 DB::commit();
 
                 return true;

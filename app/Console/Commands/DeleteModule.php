@@ -6,6 +6,7 @@ use App\Models\Module;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class DeleteModule extends Command
 {
@@ -51,6 +52,8 @@ class DeleteModule extends Command
                 }
 
                 Module::deleteModuleByName($name);
+
+                Schema::dropIfExists($name . 's');
 
                 $this->info( Module::notifyDeleteModule($name));
 

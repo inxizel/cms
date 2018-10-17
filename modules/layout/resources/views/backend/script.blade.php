@@ -13,6 +13,13 @@
 <script src="{{ mix('build/js/ResizeSensor.js') }}"></script>
 <script src="{{ mix('build/js/dashboard.js') }}"></script>
 
+<script src="{{ asset('bower_components/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('messages.js') }}"></script>
+<script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
+<script src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('bower_components/ajax/dist/ajax.min.js') }}"></script>
+
 <script>
     $(function(){
         'use strict'
@@ -43,4 +50,106 @@
 
     $("span.peity-bar").peity('bar');
     $("span.peity-donut").peity('donut');
+
+    var app_url = $('meta[name="website"]').attr('content');
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    // $.extend(true, $.fn.dataTable.defaults, {
+    //     responsive: true,
+    //     language: {
+    //         searchPlaceholder: Lang.get('global.search'),
+    //         sSearch: '',
+    //         lengthMenu: '<select class="form-control">'+
+    //             '<option value="10">10</option>'+
+    //             '<option value="20">20</option>'+
+    //             '<option value="30">30</option>'+
+    //             '<option value="40">40</option>'+
+    //             '<option value="50">50</option>'+
+    //             '<option value="-1">All</option>'+
+    //             '</select>',
+    //     },
+    //     ordering: false
+    // });
+
+    $.extend( true, $.fn.dataTable.defaults, {
+        "language": {
+            "responsive":     true,
+            "emptyTable":     Lang.get('datatable.emptyTable'),
+            "search":         Lang.get('datatable.search'),
+            "info":           Lang.get('datatable.info'),
+            "infoEmpty":      Lang.get('datatable.infoEmpty'),
+            "zeroRecords":    Lang.get('datatable.zeroRecords'),
+            "loadingRecords": Lang.get('datatable.loadingRecords'),
+            "lengthMenu": '<select class="form-control input-inline">'+
+                '<option value="30" selected>30</option>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>'+
+                '<option value="200">200</option>'+
+                '<option value="500">500</option>'+
+                '</select> ' + Lang.get('datatable.record'),
+            "paginate": {
+                "first":      Lang.get('datatable.first'),
+                "last":       Lang.get('datatable.last'),
+                "next":       Lang.get('datatable.next'),
+                "previous":   Lang.get('datatable.previous'),
+            },
+        },
+        "pageLength": "30",
+        "info": true,
+        'paging': true,
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "3000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+        "marginTop": "100"
+    }
+
 </script>
+
+@if (Session::has('create_success'))
+<script>
+    $(document).ready(function() {
+        toastr.success('{{ Session::get('create_success') }}');
+    });
+</script>
+@endif
+
+@if (Session::has('update_success'))
+    <script>
+        $(document).ready(function() {
+            toastr.success('{{ Session::get('update_success') }}');
+        });
+    </script>
+@endif
+
+@if (Session::has('delete_success'))
+    <script>
+        $(document).ready(function() {
+            toastr.error('{{ Session::get('delete_success') }}');
+        });
+    </script>
+@endif
+
