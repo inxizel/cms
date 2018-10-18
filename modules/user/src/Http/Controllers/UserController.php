@@ -3,6 +3,7 @@
 namespace Zent\User\Http\Controllers;
 
 use Zent\User\Models\User;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +15,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('user::backend.index');
+        $users = User::orderBy('id', 'desc')->get();
+
+        foreach ( $users as $user) {
+            $user->status = $user->status == 1 ? trans('global.active') : trans('global.deactive');
+        }
+
+        return view('user::backend.index', compact('users'));
     }
 
     /**
@@ -24,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user::backend.create');
     }
 
     /**
@@ -35,7 +42,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        User::create($request->all());
+
+        Session::flash('create_success', trans('global.create_success'));
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -53,9 +64,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        //
+        $user = User::find($id);
+
+        return view('user::backend.edit', compact('user', 'id'));
     }
 
     /**
@@ -63,9 +76,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
-        //
+        User::find($id)->update($request->all());
+
+        Session::flash('update_success', trans('global.update_success'));
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -75,13 +92,16 @@ class UserController extends Controller
      */
     public function destroy(Request $request)
     {
-        //
+        User::find($request->id)->delete();
+
+        Session::flash('delete_success', trans('global.delete_success'));
+
+        return response()->json([ 'err' => false ]);
     }
+
     /**
-     * Comment here.
+     * Return view front end.
      *
-     * @return here
-     * @author ThanhTung
      */
     public function home()
     {
