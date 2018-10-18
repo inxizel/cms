@@ -61,7 +61,7 @@ class DeleteModule extends Command
 
             }
         } catch (\Exception $e) {
-            
+
             $this->error($e->getMessage());
             return false;
         }

@@ -2,8 +2,8 @@
 
 namespace Zent\{Core}\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use Zent\{Core}\Models\{Core};
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class {Core}Controller extends Controller
@@ -16,6 +16,10 @@ class {Core}Controller extends Controller
     public function index()
     {
         ${core}s = {Core}::orderBy('id', 'desc')->get();
+
+        foreach ( ${core}s as ${core}) {
+            ${core}->status = ${core}->status == 1 ? trans('global.active') : trans('global.deactive');
+        }
 
         return view('{core}::backend.index', compact('{core}s'));
     }

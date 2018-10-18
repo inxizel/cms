@@ -70,14 +70,16 @@ class CreateModule extends Command
 
             // Print notify in screen
             $this->info(Module::notifyCreateModule($name));
-            $this->info(Module::notifyActiveToUse());
+            //$this->info(Module::notifyActiveToUse());
 
             // Clear cache and autoload
             Artisan::call('cache:clear');
             Artisan::call('clear-compiled');
+
             exec('composer dump-autoload');
 
             return true;
+
         } catch (\Exception $e) {
 
             $this->error($e->getMessage());
@@ -256,7 +258,8 @@ class CreateModule extends Command
 
             Module::create([
                 'name'          =>  $name,
-                'display_name'  =>  $name
+                'display_name'  =>  $name,
+                'status'        =>  1
             ]);
 
             DB::commit();

@@ -24,6 +24,19 @@
                 <input value="{{ ${core}->name }}" type="text" name="name" id="name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
             </div>
 
+            <div class="form-group">
+                <label for="" class="tx-bold">@lang('global.content')</label>
+                <textarea name="content" id="content" rows="5" class="form-control" placeholder="@lang('global.please_enter_content')" required="">{{ ${core}->content }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="tx-bold">@lang('global.status')</label>
+                <select class="form-control" name="status" id="status">
+                    <option value="1" @if(${core}->status == 1) selected @endif>@lang('global.show')</option>
+                    <option value="0" @if(${core}->status == 0) selected @endif>@lang('global.hide')</option>
+                </select>
+            </div>
+
             <div class="col-sm-2 col-md-2 pd-0">
                 <button type="submit" class="btn btn-info btn-block mg-b-20">@lang('global.save')</button>
             </div>
