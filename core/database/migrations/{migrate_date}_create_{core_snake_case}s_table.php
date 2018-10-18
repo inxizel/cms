@@ -16,7 +16,8 @@ class Create{Core}sTable extends Migration
         Schema::create('{core_snake_case}s', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable()->comment('{Core} name');
-            $table->text('note')->nullable()->comment('Note');
+            $table->text('content')->nullable()->comment('{Core} content');
+            $table->tinyInteger('status')->default(1)->comment('0: hide, 1: show');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -211,7 +211,7 @@ class Module extends Model
         return self::where([
                         'module_category_id' => 1,
                         'status'             => 1
-                    ])->get();
+                    ])->orderBy('id', 'desc')->get();
     }
 
     public static function getListMenuManager()
@@ -219,7 +219,7 @@ class Module extends Model
         return self::where([
                         'module_category_id' => 2,
                         'status'             => 1
-                    ])->get();
+                    ])->orderBy('id', 'desc')->get();
     }
 
     public static function getListMenuPlugin()
@@ -227,6 +227,6 @@ class Module extends Model
         return self::where([
                         'module_category_id' => 3,
                         'status'             => 1
-                    ])->get();
+                    ])->orderBy('id', 'desc')->get();
     }
 }

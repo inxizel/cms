@@ -16,7 +16,7 @@
 
         {{-- Bg content --}}
         <div class="col-sm-2 col-md-2 pd-0">
-            <button class="btn btn-teal btn-block mg-b-20" onclick="window.location='{{ route('{core}.create') }}'">
+            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('{core}.create') }}'">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
                 @lang('global.add')
             </button>
@@ -26,9 +26,11 @@
             <table class="table table-bordered mg-b-0" id="{core}_table">
                 <thead>
                 <tr>
-                    <th>@lang('global.order')</th>
-                    <th>@lang('global.name')</th>
-                    <th>@lang('global.action')</th>
+                    <th class="wd-5p">@lang('global.order')</th>
+                    <th class="wd-25p">@lang('global.name')</th>
+                    <th class="wd-30p">@lang('global.content')</th>
+                    <th class="wd-25p">@lang('global.status')</th>
+                    <th class="wd-15p">@lang('global.action')</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -36,6 +38,8 @@
                     <tr>
                         <td align="center">{{ $key + 1 }}</td>
                         <td>{{ ${core}->name }}</td>
+                        <td>{{ ${core}->content }}</td>
+                        <td>{{ ${core}->status }}</td>
                         <td align="center">
                             <button class="btn btn-warning wd-30 h-30" onclick="window.location='{{ route('{core}.edit', ${core}->id) }}'" data-toggle="tooltip" data-placement="top" title="@lang('global.edit')"><i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>

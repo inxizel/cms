@@ -63,5 +63,8 @@ return [
     'cancle'    =>  'Huỷ bỏ',
     'confirm'   =>  'Đồng ý',
     'name'  =>  'Tên',
-    'not_records'   =>  'Không có bản ghi dữ liệu nào'
+    'not_records'   =>  'Không có bản ghi dữ liệu nào',
+    'content'   =>  'Nội dung',
+    'show' => 'Hiển thị',
+    'hide' => 'Ẩn'
 ];

@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Module;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use App\Models\Module;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Composer;
 
 class CreateModule extends Command
 {
@@ -26,17 +25,14 @@ class CreateModule extends Command
      */
     protected $description = 'Create new module';
 
-    protected $composer;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(Composer $composer)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->composer = $composer;
     }
 
     /**
@@ -45,31 +41,38 @@ class CreateModule extends Command
      * @return mixed
      * @author ThanhTung
      */
-    public function handle() {
-
+    public function handle()
+    {
         $name = $this->argument('module-name');
 
         try {
             $name = $this->formatNameToLowerCase($name);
 
-            if ( !$this->checkModuleNameInvalid($name)) {
-                $this->error( $this->checkModuleNameInvalid($name) );
+            // Check valid module name.
+            if (!$this->checkModuleNameInvalid($name))
+            {
+                $this->error($this->checkModuleNameInvalid($name));
                 return false;
             }
 
-            if ( $this->checkModuleExistsByNameInFolder($name)) {
-                $this->error( $this->notifyCheckModuleExistsByNameInFolder($name) );
+            // Check module exist in folder 'modules'
+            if ($this->checkModuleExistsByNameInFolder($name))
+            {
+                $this->error($this->notifyCheckModuleExistsByNameInFolder($name));
                 return false;
             }
 
+            // Create module, then replace module name and content files.
             $this->createModule($name);
             $this->replaceModuleName($name);
             $this->replaceContentFiles($name);
             $this->saveDatabase($name);
 
+            // Print notify in screen
             $this->info(Module::notifyCreateModule($name));
-            $this->info(Module::notifyActiveToUse());
+            //$this->info(Module::notifyActiveToUse());
 
+            // Clear cache and autoload
             Artisan::call('cache:clear');
             Artisan::call('clear-compiled');
 
@@ -90,7 +93,8 @@ class CreateModule extends Command
      * @param string
      * @return string
      */
-    protected function formatNameToLowerCase($name) {
+    protected function formatNameToLowerCase($name)
+    {
         return Module::formatNameToLowerCase($name);
     }
 
@@ -101,7 +105,8 @@ class CreateModule extends Command
      * @param string
      * @return boolean
      */
-    protected function checkModuleNameInvalid($name) {
+    protected function checkModuleNameInvalid($name)
+    {
         return Module::checkModuleNameInvalid($name);
     }
 
@@ -111,7 +116,8 @@ class CreateModule extends Command
      * @param string
      * @return boolean
      */
-    protected function checkModuleExistsByNameInFolder($name) {
+    protected function checkModuleExistsByNameInFolder($name)
+    {
         return Module::checkModuleExistsByNameInFolder($name);
     }
 
@@ -121,7 +127,9 @@ class CreateModule extends Command
      * @param string
      * @return boolean
      */
-    protected function createModule($name) {
+    protected function createModule($name)
+    {
+        // Create folder
         Storage::makeDirectory($name);
         File::copyDirectory( Module::getPathFolderTemplate(), Module::getPathFolderModules() . "/" . $name);
 
@@ -134,7 +142,8 @@ class CreateModule extends Command
      * @param string
      * @return string
      */
-    protected function notifyCheckModuleNameInvalid($name) {
+    protected function notifyCheckModuleNameInvalid()
+    {
         return Module::notifyCheckModuleNameInvalid();
     }
 
@@ -144,7 +153,8 @@ class CreateModule extends Command
      * @param string
      * @return string
      */
-    protected function notifyCheckModuleExistsByNameInFolder($name) {
+    protected function notifyCheckModuleExistsByNameInFolder($name)
+    {
         return Module::notifyCheckModuleExistsByNameInFolder($name);
     }
 
@@ -154,15 +164,18 @@ class CreateModule extends Command
      * @param string
      * @return boolean
      */
-    protected function replaceModuleName($name) {
+    protected function replaceModuleName($name)
+    {
         $files = Storage::disk('module')->allFiles($name);
 
         $str = $this->convertModuleName($name);
 
-        for ($index = 0; $index < sizeof($files); $index++) {
+        for ($index = 0; $index < sizeof($files); $index++)
+        {
             $fileNameDefault = $files[$index];
 
-            if ( strpos($fileNameDefault, "{") !== FALSE ) {
+            if ( strpos($fileNameDefault, "{") !== FALSE )
+            {
                 $fileName = $fileNameDefault;
 
                 $fileName = str_replace("{core}", $str['str_lower'], $fileName);
@@ -170,12 +183,12 @@ class CreateModule extends Command
 
                 $migrate_date = date('Y_m_d_His', strtotime( now() ));
                 $fileName = str_replace("{migrate_date}", $migrate_date, $fileName);
-
                 $fileName = str_replace("{core_snake_case}", $name, $fileName);
 
                 $exists = Storage::disk('module')->exists($fileName);
 
-                if ($exists != true) {
+                if ($exists != true)
+                {
                     Storage::disk('module')->move($fileNameDefault, $fileName);
                     Storage::disk('module')->delete($fileNameDefault);
                 }
@@ -192,7 +205,8 @@ class CreateModule extends Command
      * @param string
      * @return array
      */
-    protected function convertModuleName($name) {
+    protected function convertModuleName($name)
+    {
         $arr = explode("_", $name);
 
         $str = array('str_upper' => null,  'str_lower' => null);
@@ -206,27 +220,25 @@ class CreateModule extends Command
         return $str;
     }
 
-    protected function replaceContentFiles($name) {
+    protected function replaceContentFiles($name)
+    {
         $files = Storage::disk('module')->allFiles($name);
-
         $str = $this->convertModuleName($name);
 
-        for ($index = 0; $index < sizeof($files); $index++) {
+        for ($index = 0; $index < sizeof($files); $index++)
+        {
             $fileName = $files[$index];
-
             $exists = Storage::disk('module')->exists($fileName);
 
-            if ($exists == true) {
+            if ($exists == true)
+            {
                 $contents = Storage::disk('module')->get($fileName);
-
                 $contents = str_replace("{core}", $str['str_lower'], $contents);
                 $contents = str_replace("{Core}", $str['str_upper'], $contents);
-
                 $contents = str_replace("{core_snake_case}", $name, $contents);
 
                 Storage::disk('module')->put($fileName, $contents);
             }
-
         }
 
         return true;
@@ -238,20 +250,23 @@ class CreateModule extends Command
      * @param string
      * @return boolean
      */
-    protected function saveDatabase($name) {
+    protected function saveDatabase($name)
+    {
         DB::beginTransaction();
 
         try {
 
             Module::create([
-                'name'  =>  $name,
-                'display_name'  =>  $name
+                'name'          =>  $name,
+                'display_name'  =>  $name,
+                'status'        =>  1
             ]);
 
             DB::commit();
-
             return true;
+
         } catch (\Exception $e) {
+
             $this->error($e->getMessage());
             return false;
         }

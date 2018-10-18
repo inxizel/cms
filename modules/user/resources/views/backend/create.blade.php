@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item" href="{{ route('{core}.index') }}">{Core}</a>
+    <a class="breadcrumb-item" href="{{ route('user.index') }}">User</a>
     <a class="breadcrumb-item active" href="{{ route('module.create') }}">@lang('global.add')</a>
 @endsection
 
@@ -15,7 +15,7 @@
         <hr> <br>
 
         {{-- Bg content --}}
-        <form action="{{ route('{core}.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('global.name')</label>

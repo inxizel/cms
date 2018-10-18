@@ -21,11 +21,11 @@
 
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('global.name')</label>
-                <input value="{{ $module->name }}" type="text" name="name" id="name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
+                <input value="{{ $module->display_name }}" type="text" name="display_name" id="display_name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
             </div>
 
             <div class="col-sm-2 col-md-2 pd-0">
-                <button type="submit" class="btn btn-teal btn-block mg-b-20">@lang('global.save')</button>
+                <button type="submit" class="btn btn-info btn-block mg-b-20">@lang('global.save')</button>
             </div>
         </form>
     </div>

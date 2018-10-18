@@ -1,8 +1,8 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item" href="{{ route('{core}.index') }}">{Core}</a>
-    <a class="breadcrumb-item active" href="{{ route('module.create') }}">@lang('global.add')</a>
+    <a class="breadcrumb-item" href="{{ route('user.index') }}">User</a>
+    <a class="breadcrumb-item active" href="{{ route('user.create') }}">@lang('global.edit')</a>
 @endsection
 
 @section('content')
@@ -10,28 +10,30 @@
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
             <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
-            @lang('global.add')
+            @lang('global.edit')
         </h6>
         <hr> <br>
 
         {{-- Bg content --}}
-        <form action="{{ route('{core}.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('user.update', $user->id) }}" method="post" enctype="multipart/form-data">
             @csrf
+            <input type="hidden" name="_method" value="PATCH">
+
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('global.name')</label>
-                <input type="text" name="name" id="name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
+                <input value="{{ $user->name }}" type="text" name="name" id="name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
             </div>
 
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('global.content')</label>
-                <textarea name="content" id="content" rows="5" class="form-control" placeholder="@lang('global.please_enter_content')" required=""></textarea>
+                <textarea name="content" id="content" rows="5" class="form-control" placeholder="@lang('global.please_enter_content')" required="">{{ $user->content }}</textarea>
             </div>
 
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('global.status')</label>
                 <select class="form-control" name="status" id="status">
-                    <option value="1">@lang('global.show')</option>
-                    <option value="0">@lang('global.hide')</option>
+                    <option value="1" @if($user->status == 1) selected @endif>@lang('global.show')</option>
+                    <option value="0" @if($user->status == 0) selected @endif>@lang('global.hide')</option>
                 </select>
             </div>
 
@@ -43,4 +45,5 @@
 @endsection
 
 @section('script')
+
 @endsection
