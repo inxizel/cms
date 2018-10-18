@@ -16,7 +16,7 @@
 
         {{-- Bg content --}}
         <div class="col-sm-2 col-md-2 pd-0">
-            <button class="btn btn-teal btn-block mg-b-20" onclick="window.location='{{ route('{core}.create') }}'">
+            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('{core}.create') }}'">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
                 @lang('global.add')
             </button>

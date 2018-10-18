@@ -25,7 +25,7 @@
                 <a href="/admin/{{$menu_function->name}}" class="br-menu-link {{ request()->is("*$menu_function->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="menu-item-icon icon ion-ios-paperplane-outline tx-22"></i>
-                        <span class="menu-item-label">{{ ucfirst($menu_function->name) }}</span>
+                        <span class="menu-item-label">{{ ucfirst($menu_function->display_name) }}</span>
                     </div><!-- menu-item -->
                 </a><!-- br-menu-link -->
             @endforeach @endif
@@ -34,8 +34,8 @@
             @if( isset($menu_managers)) @foreach($menu_managers as $menu_manager)
                 <a href="/admin/{{$menu_manager->name}}" class="br-menu-link {{ request()->is("*$menu_manager->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
-                        <i class="menu-item-icon icon ion-ios-paw-outline tx-22"></i>
-                        <span class="menu-item-label">{{ ucfirst($menu_manager->name) }}</span>
+                        <i class="menu-item-icon icon ion-ios-more-outline tx-22"></i>
+                        <span class="menu-item-label">{{ ucfirst($menu_manager->display_name) }}</span>
                     </div><!-- menu-item -->
                 </a><!-- br-menu-link -->
             @endforeach @endif
@@ -45,7 +45,7 @@
                 <a href="/admin/{{$menu_plugin->name}}" class="br-menu-link {{ request()->is("*$menu_plugin->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="menu-item-icon icon ion-ios-briefcase-outline tx-22"></i>
-                        <span class="menu-item-label">{{ ucfirst($menu_plugin->name) }}</span>
+                        <span class="menu-item-label">{{ ucfirst($menu_plugin->display_name) }}</span>
                     </div><!-- menu-item -->
                 </a><!-- br-menu-link -->
             @endforeach @endif

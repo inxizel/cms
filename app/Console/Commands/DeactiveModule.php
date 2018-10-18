@@ -43,23 +43,22 @@ class DeactiveModule extends Command
         $name = $this->argument('module-name');
 
         try {
-            if (Module::checkModuleExistsByNameInFolder($name)) {
-
+            if (Module::checkModuleExistsByNameInFolder($name))
+            {
                 Module::deactivateModuleByName($name);
-
                 $this->info(Module::notifyDeactivateModule($name));
 
                 DB::commit();
-
                 return true;
-            }else {
-                $this->error(Module::notifyCheckModuleNotExistsByNameInFolder($name));
 
+            }else {
+
+                $this->error(Module::notifyCheckModuleNotExistsByNameInFolder($name));
                 return false;
             }
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
 
+            $this->error($e->getMessage());
             return false;
         }
     }

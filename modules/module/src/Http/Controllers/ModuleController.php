@@ -2,9 +2,11 @@
 
 namespace Zent\Module\Http\Controllers;
 
+use function foo\func;
 use Illuminate\Support\Facades\Session;
-use Zent\Module\Models\Module;
+use App\Models\Module;
 use Illuminate\Http\Request;
+use DataTables;
 
 class ModuleController extends Controller
 {
@@ -15,12 +17,14 @@ class ModuleController extends Controller
      */
     public function index()
     {
-        $modules = Module::orderBy('id', 'desc')->get();
+        $modules = Module::select('modules.*', 'module_categories.name as module_category_name')
+                    ->join('module_categories', 'modules.module_category_id', '=', 'module_categories.id')
+                    ->orderBy('modules.id', 'desc')->get();
 
         foreach ($modules as $key => $module) {
             $module->status = ($module->status) == 1 ? trans('global.active') : trans('global.deactive');
-            $module->module_category_name = trans('global.not_updated');
         }
+
         return view('module::backend.index', compact('modules'));
     }
 
@@ -42,7 +46,12 @@ class ModuleController extends Controller
      */
     public function store(Request $request)
     {
-        Module::create($request->all());
+        $data = [
+            'name'  =>  $request->display_name,
+            'display_name'  =>  $request->display_name
+        ];
+
+        Module::create($data);
 
         Session::flash('create_success', trans('global.create_success'));
 
@@ -107,5 +116,28 @@ class ModuleController extends Controller
     public function home()
     {
         return view('module::frontend.index');
+    }
+    
+    /**
+     * 
+     */
+    public static function getList(Request $request)
+    {
+        $modules = Module::select('modules.*', 'module_categories.name as module_category_name')
+                    ->join('module_categories', 'modules.module_category_id', '=', 'module_categories.id')
+                    ->orderBy('modules.id', 'desc');
+
+        return DataTables::of($modules)
+                ->addIndexColumn()
+                ->addColumn('action', function($module) {
+                    $txt = "";
+
+
+                    return '';
+                })
+                ->editColumn('status', function ($module) {
+                    return $module->status == 1 ? trans('global.active') : trans('global.deactive');
+                })
+                ->toJson();
     }
 }

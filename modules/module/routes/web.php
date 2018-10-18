@@ -7,6 +7,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::group(['namespace' => 'Zent\Module\Http\Controllers', 'middleware' => ['locale']], function () {
 
     /**
@@ -14,6 +16,7 @@ Route::group(['namespace' => 'Zent\Module\Http\Controllers', 'middleware' => ['l
      */
     Route::prefix('admin')->group(function () {
         Route::resource('module', 'ModuleController');
+        Route::post('/module/get-list', 'ModuleController@getList')->name('module.get-list');
     });
 
     /**

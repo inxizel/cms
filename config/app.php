@@ -164,6 +164,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
         App\Providers\MenuServiceProvider::class,
+        yajra\Datatables\DatatablesServiceProvider::class,
+
 
     ],
 
@@ -215,6 +217,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'DataTables' => yajra\Datatables\Datatables::class,
 
     ],
 
