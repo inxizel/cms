@@ -15,7 +15,7 @@ Route::group(['namespace' => 'Zent\Module\Http\Controllers', 'middleware' => ['l
      * Group route admin.
      */
     Route::prefix('admin')->group(function () {
-        Route::resource('module', 'ModuleController');
+        Route::resource('module', 'ModuleController')->except(['create']);
         Route::post('/module/get-list', 'ModuleController@getList')->name('module.get-list');
     });
 

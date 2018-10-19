@@ -4,6 +4,9 @@ namespace Zent\User\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @method static create($data)
+ */
 class User extends Authenticatable
 {
     /*

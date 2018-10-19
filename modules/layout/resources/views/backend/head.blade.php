@@ -38,7 +38,7 @@
 <link href="{{ asset('bower_components/datatables/media/css/jquery.dataTables.min.css') }}" rel="stylesheet">
 <link href="{{ asset('bower_components/toastr/toastr.min.css') }}" rel="stylesheet">
 <link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
-
+<link href="{{ asset('bower_components/datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet">
 <!-- ZentCMS CSS -->
 <link rel="stylesheet" href="{{ mix('build/css/global.css') }}">
 <link rel="stylesheet" href="{{ mix('build/css/custom.css') }}">

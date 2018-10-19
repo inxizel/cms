@@ -19,6 +19,8 @@
 <script src="{{ asset('bower_components/toastr/toastr.min.js') }}"></script>
 <script src="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 <script src="{{ asset('bower_components/ajax/dist/ajax.min.js') }}"></script>
+<script src="{{ asset('bower_components/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('bower_components/datetimepicker/build/jquery.datetimepicker.full.js') }}"></script>
 
 <script>
     $(function(){
@@ -64,14 +66,14 @@
         language: {
             searchPlaceholder: Lang.get('global.search'),
             sSearch: '',
-            lengthMenu: '<select class="form-control">'+
+            lengthMenu: '<label><select class="form-control">'+
                 '<option value="10">10</option>'+
                 '<option value="20">20</option>'+
                 '<option value="30">30</option>'+
                 '<option value="40">40</option>'+
                 '<option value="50">50</option>'+
                 '<option value="-1">All</option>'+
-                '</select>',
+                '</select> </label> ' + Lang.get('global.records'),
         },
         ordering: false
     });
@@ -104,8 +106,9 @@
     //     'paging': true,
     // });
 
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+    $('body').tooltip({
+        selector: '[data-tooltip="tooltip"]',
+        trigger: "hover",
     });
 
     toastr.options = {

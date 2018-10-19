@@ -2,14 +2,13 @@
 
 @section('breadcrumb')
     <a class="breadcrumb-item" href="{{ route('module.index') }}">@lang('global.module_managers')</a>
-    <a class="breadcrumb-item active" href="{{ route('module.create') }}">@lang('global.add')</a>
 @endsection
 
 @section('content')
     <div class="br-section-wrapper">
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
-            <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;
             @lang('global.edit')
         </h6>
         <hr> <br>
@@ -20,12 +19,29 @@
             <input type="hidden" name="_method" value="PATCH">
 
             <div class="form-group">
-                <label for="" class="tx-bold">@lang('global.name')</label>
+                <label for="" class="tx-bold">@lang('module.module_name')</label>
                 <input value="{{ $module->display_name }}" type="text" name="display_name" id="display_name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
             </div>
 
+            <div class="form-group">
+                <label for="" class="tx-bold">@lang('module.module_category')</label>
+                <select name="module_category_id" id="module_category_id" class="form-control">
+                    @if ($module_cates) @foreach($module_cates as $module_cate)
+                        <option value="{{$module_cate->id}}" @if ($module->module_category_id == $module_cate->id) selected @endif>  {{ $module_cate->name }}</option>
+                    @endforeach @endif
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="" class="tx-bold">@lang('global.status')</label>
+                <select name="status" id="status" class="form-control">
+                    <option value="1" @if($module->status == 1) selected @endif>@lang('global.active')</option>
+                    <option value="0" @if($module->status == 0) selected @endif>@lang('global.deactive')</option>
+                </select>
+            </div>
+
             <div class="col-sm-2 col-md-2 pd-0">
-                <button type="submit" class="btn btn-info btn-block mg-b-20">@lang('global.save')</button>
+                <button type="submit" class="btn btn-teal btn-block mg-b-20">@lang('global.save')</button>
             </div>
         </form>
     </div>

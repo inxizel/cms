@@ -2,14 +2,20 @@
 
 namespace Zent\Module\Http\Controllers;
 
-use function foo\func;
 use Illuminate\Support\Facades\Session;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use DataTables;
+use App\Models\ModuleCategory;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 
 class ModuleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -53,9 +59,7 @@ class ModuleController extends Controller
 
         Module::create($data);
 
-        Session::flash('create_success', trans('global.create_success'));
-
-        return redirect()->route('module.index');
+        return redirect()->route('module.index')->with('create_success', trans('global.create_success'));
     }
 
     /**
@@ -76,8 +80,9 @@ class ModuleController extends Controller
     public function edit($id)
     {
         $module = Module::find($id);
+        $module_cates = ModuleCategory::all();
 
-        return view('module::backend.edit', compact('module', 'id'));
+        return view('module::backend.edit', compact('module', 'id', 'module_cates'));
     }
 
     /**
@@ -88,10 +93,7 @@ class ModuleController extends Controller
     public function update(Request $request, $id)
     {
         Module::find($id)->update($request->all());
-
-        Session::flash('update_success', trans('global.update_success'));
-
-        return redirect()->route('module.index');
+        return redirect()->route('module.index')->with('update_success', trans('global.update_success'));
     }
 
     /**
@@ -101,9 +103,15 @@ class ModuleController extends Controller
      */
     public function destroy(Request $request)
     {
-        Module::find($request->id)->delete();
+        $name = Module::find($request->id)->name;
 
-        Session::flash('delete_success', trans('global.delete_success'));
+        if (Module::checkModuleExistsByNameInFolder($name))
+        {
+            Storage::disk('module')->deleteDirectory($name);
+        }
+
+        Module::deleteModuleByName($name);
+        Schema::dropIfExists($name . 's');
 
         return response()->json([ 'err' => false ]);
     }
@@ -132,12 +140,19 @@ class ModuleController extends Controller
                 ->addColumn('action', function($module) {
                     $txt = "";
 
+                    $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="left" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
 
-                    return '';
+                    $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+
+                    return $txt;
                 })
                 ->editColumn('status', function ($module) {
-                    return $module->status == 1 ? trans('global.active') : trans('global.deactive');
+                    return $module->status == 1 ? trans('global.active_icon') : trans('global.deactive_icon');
                 })
+                ->editColumn('created_at', function ($module) {
+                    return date('H:i | d/m/Y', strtotime($module->created_at));
+                })
+                ->rawColumns(['status', 'action'])
                 ->toJson();
     }
 }

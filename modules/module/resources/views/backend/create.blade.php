@@ -8,10 +8,10 @@
 @section('content')
     <div class="br-section-wrapper">
         {{-- Bg header --}}
-        <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
-            <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
-            @lang('global.add')
-        </h6>
+        {{--<h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">--}}
+            {{--<i class="fa fa-folder-o" aria-hidden="true"></i> &nbsp;--}}
+            {{--@lang('global.add')--}}
+        {{--</h6>--}}
         <hr> <br>
 
         {{-- Bg content --}}
@@ -23,7 +23,7 @@
             </div>
 
             <div class="col-sm-2 col-md-2 pd-0">
-                <button type="submit" class="btn btn-info btn-block mg-b-20">@lang('global.save')</button>
+                <button type="submit" class="btn btn-teal btn-block mg-b-20">@lang('global.save')</button>
             </div>
         </form>
     </div>

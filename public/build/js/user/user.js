@@ -60,76 +60,104 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 50);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(51);
+module.exports = __webpack_require__(53);
 
 
 /***/ }),
 
-/***/ 51:
+/***/ 53:
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
 
-    $('#modules_table').DataTable({
+    $('#user_table').DataTable({
         autoWidth: true,
-        processing: true,
-        serverSide: true,
+        processing: false,
+        serverSide: false,
         ordering: false,
         ajax: {
-            url: app_url + 'admin/module/get-list',
+            url: app_url + 'admin/user/get-list-user',
             type: 'post'
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'module_category_name', searchable: false }, { data: 'status', className: 'tx-center' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center' }, { data: 'name' }, { data: 'birthday', className: 'tx-center' }, { data: 'gender', className: 'tx-center' }, { data: 'type', className: 'tx-center' }, { data: 'status', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
     });
 
-    $('#modules_table').on('click', '.btn-warning', function () {
-        window.location.href = app_url + 'admin/module/' + $(this).data('id') + '/edit';
-    });
-
-    $('#modules_table').on('click', '.btn-danger', function (event) {
-        var _this = this;
-
+    $('#frm_create_user').on('submit', function (event) {
         event.preventDefault();
 
-        swal({
-            title: Lang.get('global.are_you_sure_to_delete'),
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#00b297',
-            cancelButtonColor: '#d33',
-            confirmButtonText: Lang.get('global.confirm'),
-            cancelButtonText: Lang.get('global.cancle')
-        }).then(function (result) {
-            if (result.value) {
+        if (!$('#frm_create_user').valid()) {
+            return false;
+        }
 
-                $.ajax({
-                    url: app_url + 'admin/module/' + $(_this).data('id'),
-                    type: 'DELETE',
-                    dataType: "JSON",
-                    data: {
-                        id: $(_this).data('id')
-                    },
-                    success: function success(res) {
-                        if (!res.err) {
-                            toastr.error(Lang.get('global.delete_success'));
+        $.ajax({
+            url: app_url + 'admin/user',
+            type: 'POST', // GET, POST, PUT, PATCH, DELETE,
+            data: {
+                data: $('#frm_create_user').serialize()
+            },
+            success: function success(res) {
+                if (!res.err) {
+                    toastr.success(res.msg);
 
-                            setTimeout(function () {
-                                window.location.reload();
-                            }, 2000);
-                        }
-                    }
-                });
+                    setTimeout(function () {
+                        window.location.href = app_url + 'admin/user';
+                    }, 2000);
+
+                    $('#btn-create').attr("disabled", "disabled");
+                } else {
+                    toastr.error(res.msg);
+                }
             }
         });
+    });
+
+    $('#frm_create_user').validate({
+        errorElement: "span",
+        rules: {
+            name: {
+                required: true
+            },
+            birthday: {
+                required: true
+            },
+            email: {
+                required: true,
+                email: true
+            },
+            mobile: {
+                required: true
+            }
+        },
+        messages: {
+            name: {
+                required: Lang.get('user.please_enter_name')
+            },
+            birthday: {
+                required: Lang.get('user.please_enter_birthday')
+            },
+            email: {
+                required: Lang.get('user.please_enter_email'),
+                email: Lang.get('user.email_not_invalid')
+            },
+            mobile: {
+                required: Lang.get('user.please_enter_mobile')
+            }
+        }
+    });
+
+    jQuery('#birthday').datetimepicker({
+        datepicker: true,
+        timepicker: false,
+        format: 'd/m/Y'
     });
 });
 

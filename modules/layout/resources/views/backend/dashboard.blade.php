@@ -5,13 +5,13 @@
 @endsection
 
 @section('pageheader')
-    <div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">
-        <h4 class="tx-gray-800 mg-b-5">@lang('global.welcome') @lang('global.admin').</h4>
-    </div>
+    {{--<div class="pd-x-20 pd-sm-x-30 pd-t-20 pd-sm-t-30">--}}
+        {{--<h4 class="tx-gray-800 mg-b-5">@lang('global.welcome') @lang('global.admin').</h4>--}}
+    {{--</div>--}}
 @endsection
 
 @section('content')
-
+    <div class="pd-20">
     <div class="row row-sm">
         <div class="col-sm-6 col-xl-3">
             <div class="bg-teal rounded overflow-hidden">
@@ -172,7 +172,7 @@
 
     <div class="row row-sm mg-t-20">
         <div class="col-sm-6 col-lg-4">
-            <div class="card shadow-base bd-0">
+            <div class="card  bd-0">
                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                     <h6 class="card-title tx-uppercase tx-12 mg-b-0">Hardware Monitoring</h6>
                     <span class="tx-12 tx-uppercase">February 2017</span>
@@ -201,7 +201,7 @@
             </div><!-- card -->
         </div><!-- col-4 -->
         <div class="col-sm-6 col-lg-4 mg-t-20 mg-sm-t-0">
-            <div class="card shadow-base bd-0">
+            <div class="card  bd-0">
                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                     <h6 class="card-title tx-uppercase tx-12 mg-b-0">Sales Monitoring</h6>
                     <span class="tx-12 tx-uppercase">March 2017</span>
@@ -230,7 +230,7 @@
             </div><!-- card -->
         </div><!-- col-4 -->
         <div class="col-sm-6 col-lg-4 mg-t-20 mg-lg-t-0">
-            <div class="card shadow-base bd-0">
+            <div class="card  bd-0">
                 <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
                     <h6 class="card-title tx-uppercase tx-12 mg-b-0">Site Traffic Monitoring</h6>
                     <span class="tx-12 tx-uppercase">April 2017</span>
@@ -259,7 +259,7 @@
             </div><!-- card -->
         </div><!-- col-4 -->
     </div><!-- row -->
-    <div class="card shadow-base bd-0 mg-t-20">
+    <div class="card  bd-0 mg-t-20">
         <div class="card-header bg-transparent pd-x-25 pd-y-15 bd-b-0 d-flex justify-content-between align-items-center">
             <h6 class="card-title tx-uppercase tx-12 mg-b-0">Storage Overview</h6>
             <a href="" class="tx-gray-500 hover-info lh-0"><i class="icon ion-android-more-horizontal tx-24 lh-0"></i></a>
@@ -361,4 +361,5 @@
             </div><!-- row -->
         </div><!-- card-body -->
     </div><!-- card -->
+    </div>
 @endsection
