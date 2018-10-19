@@ -2,12 +2,18 @@
 
 namespace Zent\User\Http\Controllers;
 
+use function foo\func;
 use Zent\User\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use DataTables;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth.user');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,11 +48,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        User::create($request->all());
+        try {
+            parse_str($request->data, $data);
+            $data['password'] = bcrypt('123456');
+            User::create($data);
 
-        Session::flash('create_success', trans('global.create_success'));
-
-        return redirect()->route('user.index');
+            return response()->json([ 'err' => false, 'msg' =>  trans('global.create_success')]);
+        } catch (\Exception $e) {
+            return response()->json([ 'err' => true, 'msg' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -106,5 +116,53 @@ class UserController extends Controller
     public function home()
     {
         return view('user::frontend.index');
+    }
+
+    public static function getListUser(Request $request)
+    {
+        $users = User::orderBy('id', 'desc');
+
+        return DataTables::of($users)
+            ->addIndexColumn()
+            ->editColumn('gender', function($module) {
+                switch ($module->gender)
+                {
+                    case 1:
+                        return trans('global.male_icon');
+                    case 0:
+                        return trans('global.female_icon');
+                    default:
+                        return "???";
+                }
+            })
+            ->editColumn('type', function($module) {
+                switch ($module->type)
+                {
+                    case 1:
+                        return '<span style="font-weight: bold">'.trans('global.admin').'</span>';
+                    case 0:
+                        return trans('global.user');
+                    default:
+                        return "";
+                }
+            })
+            ->addColumn('action', function($module) {
+                $bt = "";
+
+                return '';
+            })
+            ->editColumn('status', function ($module) {
+                switch ($module->status)
+                {
+                    case 1:
+                        return trans('global.active_icon');
+                    case 0:
+                        return trans("global.deactive_icon");
+                    default:
+                        return "???";
+                }
+            })
+            ->rawColumns(['name','gender', 'type', 'status'])
+            ->toJson();
     }
 }

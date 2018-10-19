@@ -29,8 +29,9 @@
 }
 
 .btn {
-    padding: 0.4rem;
     cursor: pointer;
+    border-radius: 0px;
+    margin: 1%;
 }
 
 .table th {
@@ -43,8 +44,9 @@
 }
 
 .br-menu-link.active {
-    background-color: #17a2b8 !important;
+    background-color: #5b6470 !important;
     color: #fff;
+    border-radius: 0px !important;
 }
 
 .module_status
@@ -112,3 +114,134 @@
 .txt-align-center {
     text-align: center;
 }
+
+.error {
+    color: #d70206;
+}
+
+body {
+    color: #343a40;
+    background: whitesmoke;
+}
+
+th {
+    /*background: #00b297 !important;*/
+    /*color: white !important;*/
+}
+
+td i {
+    font-size: 16px !important;
+    cursor: pointer;
+    line-height: 200%;
+}
+
+
+.wd-763 {
+    width: 763px;
+}
+
+.br-sideleft {
+    padding: 0px;
+}
+
+.br-pageheader {
+    background: white;
+    border: 1px solid #e8ecef;
+    border-top: 0px;
+}
+
+.br-mainpanel {
+    background: white;
+}
+
+.card {
+    border: 1px solid #e8ecef !important;
+}
+
+.br-header {
+    box-shadow: none;
+    border: 1px solid #e8ecef !important;
+}
+
+.br-logo, {
+    border: 1px solid #e8ecef !important;
+}
+
+.br-header-left, .br-header-right {
+    border: none;
+}
+
+.br-logo, .br-header, .br-header-left, .br-header-right, .navicon-right, .navicon-left{
+    border: none !important;
+}
+
+.br-logo {
+    border-right: 1px solid #e8ecef !important;
+    border-bottom: 1px solid #e8ecef !important;
+    border-top: none !important;
+    border-left: none !important;
+}
+
+.br-header {
+    border-bottom: 1px solid #e8ecef !important;
+}
+
+.br-header-left {
+    border-right: 1px solid #e8ecef !important;
+}
+
+.navicon-right {
+    border-left: 1px solid #e8ecef !important;
+}
+
+#btnLeftMenu:hover, #btnLeftMenu i:hover, #btnLeftMenu:focus{
+    color: #858e96;
+}
+
+#btnLeftMenuMobile:hover, #btnLeftMenuMobile i:hover, #btnLeftMenuMobile:focus{
+    color: #858e96;
+}
+
+.br-logo, .br-header, .br-header-left, .br-header-right, .navicon-left, .navicon-right, .sidebar-tabs {
+    height: 43px;
+}
+
+.br-sideleft{
+    top: 43px;
+}
+
+.br-mainpanel {
+    margin-top: 43px;
+}
+
+body {
+    background: white;
+}
+
+.br-pagebody {
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.dataTables_filter input {
+    widows: 300px;
+}
+
+.dataTables_length {
+    width: 200px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current:focus {
+    background: #5b6470 !important;
+}
+
+.btn-warning {
+    background: #c49f47 !important;
+    border-color: #c49f47;
+}
+
+.btn-danger {
+    background: #dc3545 !important;
+    border-color; #dc3545 !important;
+}
+

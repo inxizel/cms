@@ -8,27 +8,28 @@
     <div class="br-section-wrapper">
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
-            <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
+            <i class="fa fa-folder-o" aria-hidden="true"></i> &nbsp;
             @lang('module.list')
         </h6>
         <hr> <br>
 
         {{-- Bg content --}}
-        <div class="col-sm-1 col-md-1 pd-0">
-            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('module.create') }}'">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
-                @lang('global.add')
-            </button>
-        </div>
+        {{--<div class="col-sm-1 col-md-1 pd-0 ">--}}
+            {{--<button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('module.create') }}'">--}}
+                {{--<i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;--}}
+                {{--@lang('global.add')--}}
+            {{--</button>--}}
+        {{--</div>--}}
 
         <div class="rounded table-responsive">
             <table class="table table-bordered mg-b-0" id="modules_table">
                 <thead>
                     <tr>
                         <th class="wd-4p">@lang('global.order')</th>
-                        <th class="wd-27p">@lang('module.module_name')</th>
-                        <th class="wd-27p">@lang('module.module_category')</th>
-                        <th class="wd-16p">@lang('global.status')</th>
+                        <th class="wd-20p">@lang('module.module_name')</th>
+                        <th class="wd-20p">@lang('module.module_category')</th>
+                        <th class="wd-15p">@lang('global.status')</th>
+                        <th class="wd-15p">@lang('global.created_at')</th>
                         <th class="wd-26p">@lang('global.action')</th>
                     </tr>
                 </thead>

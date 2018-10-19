@@ -7,7 +7,7 @@
 |
 */
 
-Route::group(['namespace' => 'Zent\User\Http\Controllers'], function () {
+Route::group(['namespace' => 'Zent\User\Http\Controllers', 'middleware' => ['locale']], function () {
 
     /**
      * Group route admin.
@@ -17,6 +17,8 @@ Route::group(['namespace' => 'Zent\User\Http\Controllers'], function () {
         Route::get('login', 'LoginController@showLoginForm')->name('user.showLoginForm');
         Route::post('login', 'LoginController@login')->name('user.login');
         Route::get('logout', 'LoginController@logout')->name('user.logout');
+
+        Route::post('/user/get-list-user', 'UserController@getListUser')->name('user.getListUser');
     });
 
     /**

@@ -13,7 +13,9 @@ return [
      */
     'messages' => [
         'global',
-        'module'
+        'module',
+        'user',
+        'datatable'
     ],
 
     /*
