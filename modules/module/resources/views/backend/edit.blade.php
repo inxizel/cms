@@ -40,8 +40,9 @@
                 </select>
             </div>
 
-            <div class="col-sm-2 col-md-2 pd-0">
-                <button type="submit" class="btn btn-teal btn-block mg-b-20">@lang('global.save')</button>
+            <div class="col-sm-1 col-md-1 pd-0">
+                <button type="submit" class="btn btn-info btn-block mg-b-20"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                     &nbsp;@lang('global.save')</button>
             </div>
         </form>
     </div>

@@ -61,50 +61,53 @@
         }
     });
 
-    $.extend(true, $.fn.dataTable.defaults, {
-        responsive: true,
-        language: {
-            searchPlaceholder: Lang.get('global.search'),
-            sSearch: '',
-            lengthMenu: '<label><select class="form-control">'+
-                '<option value="10">10</option>'+
-                '<option value="20">20</option>'+
-                '<option value="30">30</option>'+
-                '<option value="40">40</option>'+
-                '<option value="50">50</option>'+
-                '<option value="-1">All</option>'+
-                '</select> </label> ' + Lang.get('global.records'),
-        },
-        ordering: false
-    });
-
-    // $.extend( true, $.fn.dataTable.defaults, {
-    //     "language": {
-    //         "responsive":     true,
-    //         "emptyTable":     Lang.get('datatable.emptyTable'),
-    //         "search":         Lang.get('datatable.search'),
-    //         "info":           Lang.get('datatable.info'),
-    //         "infoEmpty":      Lang.get('datatable.infoEmpty'),
-    //         "zeroRecords":    Lang.get('datatable.zeroRecords'),
-    //         "loadingRecords": Lang.get('datatable.loadingRecords'),
-    //         "lengthMenu": '<select class="form-control input-inline">'+
-    //             '<option value="30" selected>30</option>'+
+    // $.extend(true, $.fn.dataTable.defaults, {
+    //     responsive: true,
+    //     language: {
+    //         searchPlaceholder: Lang.get('global.search'),
+    //         sSearch: '',
+    //         lengthMenu: '<label><select class="form-control">'+
+    //             '<option value="10">10</option>'+
+    //             '<option value="20">20</option>'+
+    //             '<option value="30">30</option>'+
+    //             '<option value="40">40</option>'+
     //             '<option value="50">50</option>'+
-    //             '<option value="100">100</option>'+
-    //             '<option value="200">200</option>'+
-    //             '<option value="500">500</option>'+
-    //             '</select> ' + Lang.get('datatable.record'),
-    //         "paginate": {
-    //             "first":      Lang.get('datatable.first'),
-    //             "last":       Lang.get('datatable.last'),
-    //             "next":       Lang.get('datatable.next'),
-    //             "previous":   Lang.get('datatable.previous'),
-    //         },
+    //             '<option value="-1">All</option>'+
+    //             '</select> </label> ' + Lang.get('global.records'),
     //     },
-    //     "pageLength": "30",
-    //     "info": true,
-    //     'paging': true,
+    //     ordering: false
     // });
+
+    $.extend( true, $.fn.dataTable.defaults, {
+        "language": {
+            "responsive":     true,
+            "searchPlaceholder": Lang.get('global.search'),
+            "emptyTable":     Lang.get('datatable.emptyTable'),
+            "search":         "",
+            "info":           Lang.get('datatable.info'),
+            "infoEmpty":      Lang.get('datatable.infoEmpty'),
+            "zeroRecords":    Lang.get('datatable.zeroRecords'),
+            "loadingRecords": Lang.get('datatable.loadingRecords'),
+            "lengthMenu": '<label><select class="form-control input-inline">'+
+                '<option value="30" selected>30</option>'+
+                '<option value="50">50</option>'+
+                '<option value="100">100</option>'+
+                '<option value="200">200</option>'+
+                '<option value="500">500</option>'+
+                '</select></label> ' + Lang.get('datatable.record'),
+            "paginate": {
+                "first":      Lang.get('datatable.first'),
+                "last":       Lang.get('datatable.last'),
+                "next":       Lang.get('datatable.next'),
+                "previous":   Lang.get('datatable.previous'),
+            },
+            "processing": Lang.get('datatable.processing')
+        },
+        "pageLength": "30",
+        "info": true,
+        'paging': true,
+        "ordering" : false
+    });
 
     $('body').tooltip({
         selector: '[data-tooltip="tooltip"]',

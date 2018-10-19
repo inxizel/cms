@@ -14,7 +14,8 @@ return [
     'messages' => [
         'global',
         'module',
-        'user'
+        'user',
+        'datatable'
     ],
 
     /*
