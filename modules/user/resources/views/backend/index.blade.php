@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item active" href="{{ route('user.index') }}">User</a>
+    <a class="breadcrumb-item active" href="{{ route('user.index') }}">{{ $display_name }}</a>
     {{-- use lang in file global --}}
 @endsection
 
@@ -9,14 +9,14 @@
     <div class="br-section-wrapper">
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
-            <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
-            List user
+            <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+            @lang('global.list') {{ $display_name }}
         </h6>
         <hr> <br>
 
         {{-- Bg content --}}
-        <div class="col-sm-1 col-md-1 pd-0">
-            <button class="btn btn-teal btn-block mg-b-20" onclick="window.location='{{ route('user.create') }}'">
+        <div class="col-sm-1 col-md-1 pd-0 mg-b-20">
+            <button class="btn btn-info btn-block" onclick="window.location='{{ route('user.create') }}'">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
                 @lang('global.add')
             </button>

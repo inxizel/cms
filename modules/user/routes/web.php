@@ -19,6 +19,8 @@ Route::group(['namespace' => 'Zent\User\Http\Controllers', 'middleware' => ['loc
         Route::get('logout', 'LoginController@logout')->name('user.logout');
 
         Route::post('/user/get-list-user', 'UserController@getListUser')->name('user.getListUser');
+
+        Route::post('/user/check-unique-email', 'UserController@checkUniqueEmail')->name('user.checkUniqueEmail');
     });
 
     /**

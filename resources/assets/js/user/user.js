@@ -2,8 +2,8 @@ $(document).ready(function () {
 
     $('#user_table').DataTable({
         autoWidth: true,
-        processing: false,
-        serverSide: false,
+        processing: true,
+        serverSide: true,
         ordering: false,
         ajax: {
             url: app_url + 'admin/user/get-list-user',
@@ -24,31 +24,15 @@ $(document).ready(function () {
     $('#frm_create_user').on('submit', function (event) {
         event.preventDefault();
 
-        if (!$('#frm_create_user').valid()) {
+        var form = $('#frm_create_user');
+
+        $('span[class=error]').remove();
+
+        if (!form.valid()) {
             return false;
         }
 
-        $.ajax({
-            url: app_url + 'admin/user',
-            type: 'POST', // GET, POST, PUT, PATCH, DELETE,
-            data: {
-                data: $('#frm_create_user').serialize()
-            },
-            success: function (res)
-            {
-                if (!res.err) {
-                    toastr.success(res.msg);
-
-                    setTimeout(function () {
-                        window.location.href = app_url + 'admin/user';
-                    }, 2000);
-
-                    $('#btn-create').attr("disabled", "disabled");
-                } else {
-                    toastr.error(res.msg);
-                }
-            }
-        });
+        createUser(form.serialize());
     });
 
     $('#frm_create_user').validate({
@@ -90,5 +74,37 @@ $(document).ready(function () {
         timepicker:false,
         format:'d/m/Y'
     });
+    
+    function createUser(data) {
+        $.ajax({
+            url: app_url + 'admin/user',
+            type: 'POST', // GET, POST, PUT, PATCH, DELETE,
+            data: {
+                data: data
+            },
+            success: function (res)
+            {
+                if (!res.err) {
+                    toastr.success(res.msg);
 
+                    setTimeout(function () {
+                        window.location.href = app_url + 'admin/user';
+                    }, 2000);
+
+                    $('#btn-create').attr("disabled", "disabled");
+                } else {
+                    if (res.type == 'email')
+                    {
+                        $('#email').parent().append('<span id="email-error" class="error">'+res.msg+'</span>');
+                    } else {
+                        toastr.error(res.msg);
+                    }
+                }
+            }
+        });
+    }
+
+    $('#user_table').on('click', '.btn-warning', function () {
+        window.location.href = app_url + 'admin/user/' + $(this).data('id') + '/edit';
+    });
 });

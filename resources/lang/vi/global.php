@@ -77,5 +77,13 @@ return [
     'user'  =>  'Người dùng',
     'active_icon'   =>  '<i class="fa fa-check" style="font-weight: bold; color: green" data-tooltip="tooltip" data-placement="left" title="Active"></i>',
     'deactive_icon' =>  '<i class="fa fa-exclamation-triangle" aria-hidden="true" style="font-weight: bold; color: #dc3545" data-tooltip="tooltip" data-placement="left" title="Deactive"></i>',
-    'records'    =>  'bản ghi'
+    'records'    =>  'bản ghi',
+    'list_user' =>  'Danh sách người dùng',
+    'save_icon' =>  '<i class="fa fa-floppy-o" aria-hidden="true"></i>',
+    'email_exists'  =>  'Email này đã tồn tại.',
+    'list_permission'   =>  'Danh sách quyền hạn',
+    'display_name'  =>  'Tên hiển thị',
+    'description'   =>  'Miêu tả',
+    'list'  =>  'Danh sách',
+    'permission'    =>  'Quyền hạn'
 ];

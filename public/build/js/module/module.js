@@ -88,7 +88,7 @@ $(document).ready(function () {
             type: 'post'
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'module_category_name', searchable: false }, { data: 'status', className: 'tx-center' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'module_category_name', searchable: false, className: 'tx-center' }, { data: 'note' }, { data: 'status', className: 'tx-center' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
     });
 
     $('#modules_table').on('click', '.btn-warning', function () {

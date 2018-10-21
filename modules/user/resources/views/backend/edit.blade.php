@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item" href="{{ route('user.index') }}">User</a>
+    <a class="breadcrumb-item" href="{{ route('user.index') }}">{{ $display_name }}</a>
     <a class="breadcrumb-item active" href="{{ route('user.create') }}">@lang('global.edit')</a>
 @endsection
 
@@ -10,7 +10,7 @@
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
             <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
-            @lang('global.edit')
+            @lang('global.edit') {{ $display_name }}
         </h6>
         <hr> <br>
 

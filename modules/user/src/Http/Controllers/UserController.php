@@ -2,17 +2,21 @@
 
 namespace Zent\User\Http\Controllers;
 
-use function foo\func;
 use Zent\User\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use DataTables;
+use App\Models\Module;
+use View;
 
 class UserController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth.user');
+
+        $display_name = Module::getDisplayName('user');
+        View::share('display_name', $display_name);
     }
     /**
      * Display a listing of the resource.
@@ -51,6 +55,12 @@ class UserController extends Controller
         try {
             parse_str($request->data, $data);
             $data['password'] = bcrypt('123456');
+
+            if ($this->checkUniqueEmail($data['email']))
+            {
+                return response()->json([ 'err' => true, 'msg' => trans('global.email_exists'), 'type' => 'email']);
+            }
+
             User::create($data);
 
             return response()->json([ 'err' => false, 'msg' =>  trans('global.create_success')]);
@@ -124,8 +134,8 @@ class UserController extends Controller
 
         return DataTables::of($users)
             ->addIndexColumn()
-            ->editColumn('gender', function($module) {
-                switch ($module->gender)
+            ->editColumn('gender', function($user) {
+                switch ($user->gender)
                 {
                     case 1:
                         return trans('global.male_icon');
@@ -135,8 +145,8 @@ class UserController extends Controller
                         return "???";
                 }
             })
-            ->editColumn('type', function($module) {
-                switch ($module->type)
+            ->editColumn('type', function($user) {
+                switch ($user->type)
                 {
                     case 1:
                         return '<span style="font-weight: bold">'.trans('global.admin').'</span>';
@@ -146,13 +156,17 @@ class UserController extends Controller
                         return "";
                 }
             })
-            ->addColumn('action', function($module) {
-                $bt = "";
+            ->addColumn('action', function($user) {
+                $txt = "";
 
-                return '';
+                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="left" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+
+                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+
+                return $txt;
             })
-            ->editColumn('status', function ($module) {
-                switch ($module->status)
+            ->editColumn('status', function ($user) {
+                switch ($user->status)
                 {
                     case 1:
                         return trans('global.active_icon');
@@ -162,7 +176,14 @@ class UserController extends Controller
                         return "???";
                 }
             })
-            ->rawColumns(['name','gender', 'type', 'status'])
+            ->rawColumns(['name','gender', 'type', 'status', 'action'])
             ->toJson();
+    }
+
+    public static function checkUniqueEmail($email)
+    {
+        $flag = User::where('email', $email)->count();
+
+        return $flag > 0 ? true : false;
     }
 }
