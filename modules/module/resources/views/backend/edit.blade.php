@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item" href="{{ route('module.index') }}">@lang('global.module_managers')</a>
+    <a class="breadcrumb-item" href="{{ route('module.index') }}">{{$display_name}}</a>
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
             <i class="fa fa-pencil-square-o" aria-hidden="true"></i> &nbsp;
-            @lang('global.edit')
+            @lang('global.edit') {{ $display_name }}
         </h6>
         <hr> <br>
 
@@ -21,6 +21,11 @@
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('module.module_name')</label>
                 <input value="{{ $module->display_name }}" type="text" name="display_name" id="display_name" class="form-control" placeholder="@lang('global.please_enter_content')" required="">
+            </div>
+
+            <div class="form-group">
+                <label for="" class="tx-bold">@lang('module.note')</label>
+                <textarea name="note" id="note" cols="30" rows="5" class="form-control" placeholder="@lang('global.please_enter_content')">{{ $module->note }}</textarea>
             </div>
 
             <div class="form-group">
@@ -41,7 +46,7 @@
             </div>
 
             <div class="col-sm-1 col-md-1 pd-0">
-                <button type="submit" class="btn btn-info btn-block mg-b-20"><i class="fa fa-floppy-o" aria-hidden="true"></i>
+                <button type="submit" class="btn btn-info btn-block mg-b-20">@lang('global.save_icon')
                      &nbsp;@lang('global.save')</button>
             </div>
         </form>

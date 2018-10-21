@@ -16,26 +16,44 @@ class ModulesTableSeeder extends Seeder
 
         Module::create([
             'name'  =>  'layout',
-            'display_name'  =>  'layout',
-            'module_category_id'    => 2
+            'display_name'  =>  'Layout',
+            'module_category_id'    => 2,
+            'status'    =>  0
         ]);
 
         Module::create([
             'name'  =>  'user',
-            'display_name'  =>  'user',
-            'module_category_id'    =>  2
+            'display_name'  =>  'Người dùng',
+            'module_category_id'    =>  2,
+            'status'    =>  1
         ]);
 
         Module::create([
             'name'  =>  'customer',
-            'display_name'  =>  'customer',
-            'module_category_id'    =>  2
+            'display_name'  =>  'Khách hàng',
+            'module_category_id'    =>  2,
+            'status'    =>  0
         ]);
 
         Module::create([
             'name'  =>  'module',
-            'display_name'  =>  'module',
-            'module_category_id'    =>  2
+            'display_name'  =>  'Module',
+            'module_category_id'    =>  2,
+            'status'    =>  1
+        ]);
+
+        Module::create([
+            'name'  =>  'role',
+            'display_name'  =>  'Vai trò',
+            'module_category_id'    =>  3,
+            'status'    =>  1
+        ]);
+
+        Module::create([
+            'name'  =>  'permission',
+            'display_name'  =>  'Quyền hạn',
+            'module_category_id'    =>  3,
+            'status'    =>  1
         ]);
     }
 }

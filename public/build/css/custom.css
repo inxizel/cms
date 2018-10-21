@@ -31,7 +31,7 @@
 .btn {
     cursor: pointer;
     border-radius: 0px;
-    margin: 1%;
+    margin: 5px;
 }
 
 .table th {
@@ -242,6 +242,23 @@ body {
 
 .btn-danger {
     background: #dc3545 !important;
-    border-color; #dc3545 !important;
+    border-color: #dc3545 !important;
 }
+
+.btn-success {
+    background: #4e81c0 !important;
+    border-color: #4e81c0 !important;
+}
+
+#permission_role_table input[type=checkbox]
+{
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(1.5); /* IE */
+    -moz-transform: scale(1.5); /* FF */
+    -webkit-transform: scale(1.5); /* Safari and Chrome */
+    -o-transform: scale(1.5); /* Opera */
+    padding: 10px;
+    cursor: pointer;
+}
+
 

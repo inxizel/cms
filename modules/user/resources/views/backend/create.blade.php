@@ -1,16 +1,16 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item" href="{{ route('user.index') }}">User</a>
-    <a class="breadcrumb-item active" href="{{ route('module.create') }}">@lang('global.add')</a>
+    <a class="breadcrumb-item" href="{{ route('user.index') }}">{{ $display_name }}</a>
+    <a class="breadcrumb-item active" href="{{ route('user.create') }}">@lang('global.add')</a>
 @endsection
 
 @section('content')
     <div class="br-section-wrapper">
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
-            <i class="menu-item-icon icon ion-ios-pricetag-outline tx-20 mg-r-5"></i>
-            @lang('global.add')
+            <i class="fa fa-user-plus" aria-hidden="true"></i> &nbsp;
+            @lang('global.add') {{ $display_name }}
         </h6>
         <hr> <br>
 
@@ -61,10 +61,8 @@
                 </select>
             </div>
 
-            <hr class="mg-t-50">
-
-            <div class="col-sm-2 col-md-2 pd-0">
-                <button type="submit" class="btn btn-teal btn-block mg-b-20" id="btn-create">@lang('global.save')</button>
+            <div class="col-sm-1 col-md-1 pd-0">
+                <button type="submit" class="btn btn-info btn-block mg-b-20" id="btn-create">@lang('global.save_icon') &nbsp;@lang('global.save')</button>
             </div>
         </form>
     </div>

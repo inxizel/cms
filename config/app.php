@@ -165,7 +165,7 @@ return [
         Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
         App\Providers\MenuServiceProvider::class,
         yajra\Datatables\DatatablesServiceProvider::class,
-
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],
 
@@ -218,6 +218,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'DataTables' => yajra\Datatables\Datatables::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 

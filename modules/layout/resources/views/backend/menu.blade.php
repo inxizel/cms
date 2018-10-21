@@ -14,7 +14,7 @@
         <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.modules')</label>
 
         <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.managers')</label>
-        <a href="{{ route('module.index') }}" class="br-menu-link {{ request()->is('*module*') ? 'active' : '' }}">
+        <a href="{{ route('module.index') }}" class="br-menu-link {{ request()->is('admin/module*') ? 'active' : '' }}">
             <div class="br-menu-item">
                 <i class="menu-item-icon icon ion-ios-folder-outline tx-22"></i>
                 <span class="menu-item-label">@lang('global.module_managers')</span>

@@ -2,19 +2,22 @@
 
 namespace Zent\Module\Http\Controllers;
 
-use Illuminate\Support\Facades\Session;
 use App\Models\Module;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\ModuleCategory;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
+use View;
 
 class ModuleController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth.user');
+
+        $display_name = Module::getDisplayName('module');
+        View::share('display_name', $display_name);
     }
     /**
      * Display a listing of the resource.
@@ -132,11 +135,14 @@ class ModuleController extends Controller
     public static function getList(Request $request)
     {
         $modules = Module::select('modules.*', 'module_categories.name as module_category_name')
-                    ->join('module_categories', 'modules.module_category_id', '=', 'module_categories.id')
-                    ->orderBy('modules.id', 'desc');
+                        ->join('module_categories', 'modules.module_category_id', '=', 'module_categories.id')
+                        ->orderBy('modules.id', 'desc');
 
         return DataTables::of($modules)
                 ->addIndexColumn()
+                ->editColumn('note', function ($module) {
+                    return !is_null($module->note) ? $module->note : trans('global.not_updated');
+                })
                 ->addColumn('action', function($module) {
                     $txt = "";
 
@@ -150,7 +156,7 @@ class ModuleController extends Controller
                     return $module->status == 1 ? trans('global.active_icon') : trans('global.deactive_icon');
                 })
                 ->editColumn('created_at', function ($module) {
-                    return date('H:i | d/m/Y', strtotime($module->created_at));
+                    return date('H:i | d-m-Y', strtotime($module->created_at));
                 })
                 ->rawColumns(['status', 'action'])
                 ->toJson();

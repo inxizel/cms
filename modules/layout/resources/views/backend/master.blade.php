@@ -22,7 +22,7 @@
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.modules')</label>
             @if( isset($menu_functions)) @foreach($menu_functions as $menu_function)
-                <a href="/admin/{{$menu_function->name}}" class="br-menu-link {{ request()->is("*$menu_function->name*") ? 'active' : '' }}">
+                <a href="/admin/{{$menu_function->name}}" class="br-menu-link {{ request()->is("admin/$menu_function->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="fa fa-code tx-16" aria-hidden="true"></i>
                         <span class="menu-item-label">{{ ucfirst($menu_function->display_name) }}</span>
@@ -32,7 +32,7 @@
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.managers')</label>
             @if( isset($menu_managers)) @foreach($menu_managers as $menu_manager)
-                <a href="/admin/{{$menu_manager->name}}" class="br-menu-link {{ request()->is("*$menu_manager->name*") ? 'active' : '' }}">
+                <a href="/admin/{{$menu_manager->name}}" class="br-menu-link {{ request()->is("admin/$menu_manager->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="fa fa-folder tx-16" aria-hidden="true"></i>
                         <span class="menu-item-label">{{ ucfirst($menu_manager->display_name) }}</span>
@@ -42,7 +42,7 @@
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.plugins')</label>
             @if( isset($menu_plugins)) @foreach($menu_plugins as $menu_plugin)
-                <a href="/admin/{{$menu_plugin->name}}" class="br-menu-link {{ request()->is("*$menu_plugin->name*") ? 'active' : '' }}">
+                <a href="/admin/{{$menu_plugin->name}}" class="br-menu-link {{ request()->is("admin/$menu_plugin->name*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="fa fa-cog tx-16" aria-hidden="true"></i>
                         <span class="menu-item-label">{{ ucfirst($menu_plugin->display_name) }}</span>

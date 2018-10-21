@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item active" href="{{ route('module.index') }}">@lang('global.module_managers')</a>
+    <a class="breadcrumb-item active" href="{{ route('module.index') }}">{{$display_name}}</a>
 @endsection
 
 @section('content')
@@ -9,7 +9,7 @@
         {{-- Bg header --}}
         <h6 class="tx-gray-800 tx-uppercase tx-bold tx-18 mg-b-10">
             <i class="fa fa-folder-o" aria-hidden="true"></i> &nbsp;
-            @lang('module.list')
+            @lang('global.list') {{ $display_name }}
         </h6>
         <hr> <br>
 
@@ -26,11 +26,12 @@
                 <thead>
                     <tr>
                         <th class="wd-4p">@lang('global.order')</th>
-                        <th class="wd-20p">@lang('module.module_name')</th>
-                        <th class="wd-20p">@lang('module.module_category')</th>
-                        <th class="wd-15p">@lang('global.status')</th>
+                        <th class="wd-10p">@lang('module.module_name')</th>
+                        <th class="wd-15p">@lang('module.module_category')</th>
+                        <th class="wd-25p">@lang('module.note')</th>
+                        <th class="wd-10p">@lang('global.status')</th>
                         <th class="wd-15p">@lang('global.created_at')</th>
-                        <th class="wd-26p">@lang('global.action')</th>
+                        <th class="wd-16p">@lang('global.action')</th>
                     </tr>
                 </thead>
             </table>
