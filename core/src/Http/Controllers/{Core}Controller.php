@@ -3,14 +3,20 @@
 namespace Zent\{Core}\Http\Controllers;
 
 use Zent\{Core}\Models\{Core};
-use Illuminate\Support\Facades\Session;
+use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use DataTables;
+use View;
 
 class {Core}Controller extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth.user');
+
+        $display_name = Module::getDisplayName('{core_snake_case}');
+        View::share('display_name', $display_name);
     }
 
     /**
@@ -20,13 +26,7 @@ class {Core}Controller extends Controller
      */
     public function index()
     {
-        ${core}s = {Core}::orderBy('id', 'desc')->get();
-
-        foreach ( ${core}s as ${core}) {
-            ${core}->status = ${core}->status == 1 ? trans('global.active') : trans('global.deactive');
-        }
-
-        return view('{core}::backend.index', compact('{core}s'));
+        return view('{core}::backend.index');
     }
 
     /**
@@ -47,11 +47,20 @@ class {Core}Controller extends Controller
      */
     public function store(Request $request)
     {
-        {Core}::create($request->all());
+        DB::beginTransaction();
 
-        Session::flash('create_success', trans('global.create_success'));
+        try {
+            $data = array();
+            parse_str($request->data, $data);
+            {Core}::create($data);
 
-        return redirect()->route('{core}.index');
+            DB::commit();
+            return response()->json(['err' => false, 'msg' => trans('global.create_success')]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['err' => true, 'msg' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -81,13 +90,22 @@ class {Core}Controller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        {Core}::find($id)->update($request->all());
+        DB::beginTransaction();
 
-        Session::flash('update_success', trans('global.update_success'));
+        try {
+            $data = array();
+            parse_str($request->data, $data);
+            {Core}::find($data['{core_snake_case}_id'])->update($data);
 
-        return redirect()->route('{core}.index');
+            DB::commit();
+            return response()->json(['err' => false, 'msg' => trans('global.update_success')]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['err' => true, 'msg' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -97,11 +115,17 @@ class {Core}Controller extends Controller
      */
     public function destroy(Request $request)
     {
-        {Core}::find($request->id)->delete();
+        DB::beginTransaction();
 
-        Session::flash('delete_success', trans('global.delete_success'));
+        try {
+            {Core}::find($request->id)->delete();
 
-        return response()->json([ 'err' => false ]);
+            DB::commit();
+            return response()->json([ 'err' => false, 'msg' =>  trans('global.delete_success')]);
+
+        } catch (\Exception $e) {
+            return response()->json(['err'  =>  true, 'msg' =>  $e->getMessage()]);
+        }
     }
 
     /**
@@ -112,4 +136,41 @@ class {Core}Controller extends Controller
     {
         return view('{core}::frontend.index');
     }
+
+    /**
+     * DataTables get list {core}
+     */
+    public static function getList{Core}()
+{
+    ${core_snake_case}s = {Core}::orderBy('id', 'desc')->get();
+
+    return DataTables::of(${core_snake_case}s)
+        ->addIndexColumn()
+        ->addColumn('action', function (${core_snake_case}) {
+            $txt = "";
+
+//                if ( Entrust::can(['// here']))
+//                {
+            $txt .= '<button data-id="' . ${core_snake_case}->id . '" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="' . trans('global.edit') . '"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+//                }
+
+//                if ( Entrust::can(['// here']))
+//                {
+            $txt .= '<button data-id="' . ${core_snake_case}->id . '" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="top" title="' . trans('global.delete') . '"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+//                }
+
+            return $txt;
+        })
+        ->editColumn('created_at', function (${core_snake_case}) {
+            return date('H:i | d-m-Y', strtotime(${core_snake_case}->created_at));
+        })
+        ->editColumn('content', function (${core_snake_case}) {
+            return !is_null(${core_snake_case}->content) ? ${core_snake_case}->content : trans('global.not_updated');
+        })
+        ->editColumn('status', function (${core_snake_case}) {
+            return (${core_snake_case}->status == 1) ? trans('global.show') : trans('global.hide');
+        })
+        ->rawColumns(['action'])
+        ->toJson();
+}
 }

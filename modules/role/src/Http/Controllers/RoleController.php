@@ -30,7 +30,7 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view('role::backend.index', compact('roles'));
+        return view('role::backend.index');
     }
 
     /**
@@ -56,9 +56,7 @@ class RoleController extends Controller
 
         Role::create($data);
 
-        Session::flash('create_success', trans('global.create_success'));
-
-        return redirect()->route('role.index');
+        return redirect()->route('role.index')->with('create_success', trans('global.create_success'));
     }
 
     /**

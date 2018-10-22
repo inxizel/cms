@@ -14,6 +14,10 @@ Route::group(['namespace' => 'Zent\{Core}\Http\Controllers', 'middleware' => ['l
      */
     Route::group(['prefix' => 'admin'], function () {
         Route::resource('{core_snake_case}', '{Core}Controller');
+
+        Route::prefix('{core_snake_case}')->group(function () {
+            Route::post('get-list-{core_snake_case}', '{Core}Controller@getList{Core}')->name('{core_snake_case}.getList{Core}');
+        });
     });
 
     /**
