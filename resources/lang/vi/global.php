@@ -85,5 +85,6 @@ return [
     'display_name'  =>  'Tên hiển thị',
     'description'   =>  'Miêu tả',
     'list'  =>  'Danh sách',
-    'permission'    =>  'Quyền hạn'
+    'permission'    =>  'Quyền hạn',
+    'role'  =>  'Vai trò'
 ];
