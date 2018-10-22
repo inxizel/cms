@@ -33,6 +33,10 @@
     "rickshaw": "1.6.2",
     "chartist": "^0.11.0",
     "peity": "3.2.1",
-    "particles.js": "particles-js#^2.0.0"
+    "particles.js": "particles-js#^2.0.0",
+    "datatables": "1.10.16",
+    "toastr": "^2.1.3",
+    "jquery-validation": "^1.18.0",
+    "datetimepicker": "jquery-datetime-picker#^2.5.20"
   }
 }

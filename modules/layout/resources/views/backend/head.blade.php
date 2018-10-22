@@ -23,17 +23,22 @@
 <meta property="og:image:height" content="600">
 
 <!-- Meta -->
-<meta name="description" content="">
-<meta name="author" content="ThanhTung">
+<meta name="description" content="{{ env('APP_DESCRIPTION') }}">
+<meta name="author" content="{{ env('AUTHOR') }}">
+<meta name="website" content="{{ asset('') }}">
 
-<title>Zent CMS</title>
+<title>{{ env('APP_NAME') }}</title>
 
 <!-- vendor css -->
-<link href="{{ asset('bower_components/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{--<link href="{{ asset('bower_components/font-awesome/css/font-awesome.css') }}" rel="stylesheet">--}}
 <link href="{{ asset('bower_components/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
 <link href="{{ asset('bower_components/perfect-scrollbar/css/perfect-scrollbar.css') }}" rel="stylesheet">
 <link href="{{ asset('bower_components/jquery-switchButton/jquery.switchButton.css') }}" rel="stylesheet">
-
+<link href="{{ asset('bower_components/datatables/media/css/jquery.dataTables.min.css') }}" rel="stylesheet">
+<link href="{{ asset('bower_components/toastr/toastr.min.css') }}" rel="stylesheet">
+<link href="{{ asset('bower_components/sweetalert2/dist/sweetalert2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('bower_components/datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet">
 <!-- ZentCMS CSS -->
 <link rel="stylesheet" href="{{ mix('build/css/global.css') }}">
 <link rel="stylesheet" href="{{ mix('build/css/custom.css') }}">

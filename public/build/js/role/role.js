@@ -76,7 +76,105 @@ module.exports = __webpack_require__(57);
 /***/ 57:
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Applications/XAMPP/xamppfiles/htdocs/ZentCMS/resources/assets/js/role/role.js'");
+$(document).ready(function () {
+
+    $('#role_table').DataTable({
+        autoWidth: true,
+        processing: true,
+        serverSide: true,
+        ordering: false,
+        ajax: {
+            url: app_url + 'admin/role/get-list-role',
+            type: 'post'
+        },
+        searching: true,
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'description' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+    });
+
+    $('#role_table').on('click', '.btn-edit', function () {
+        window.location.href = app_url + 'admin/role/' + $(this).data('id') + '/edit';
+    });
+
+    $('#role_table').on('click', '.btn-permission', function () {
+        window.location.href = app_url + 'admin/role/permission/' + $(this).data('id');
+    });
+
+    $('#role_table').on('click', '.btn-delete', function (event) {
+        var _this = this;
+
+        event.preventDefault();
+
+        swal({
+            title: Lang.get('global.are_you_sure_to_delete'),
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#00b297',
+            cancelButtonColor: '#d33',
+            confirmButtonText: Lang.get('global.confirm'),
+            cancelButtonText: Lang.get('global.cancle')
+        }).then(function (result) {
+            if (result.value) {
+
+                $.ajax({
+                    url: app_url + 'admin/role/' + $(_this).data('id'),
+                    type: 'DELETE',
+                    dataType: "JSON",
+                    data: {
+                        id: $(_this).data('id')
+                    },
+                    success: function success(res) {
+                        // console.log(res);
+                        if (!res.err) {
+                            toastr.error(res.msg);
+
+                            $('#role_table').DataTable().ajax.reload();
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    $('#permission_role_table').DataTable({
+        autoWidth: true,
+        processing: true,
+        serverSide: true,
+        ordering: false,
+        ajax: {
+            url: app_url + 'admin/role/get-list-permission',
+            type: 'post',
+            data: {
+                id: $('#role_id').val()
+            }
+        },
+        searching: true,
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'description' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+    });
+
+    $('#permission_role_table').on('click', '.btn-permission-role', function () {
+        var permission_id = $(this).data('id');
+        var role_id = $('#role_id').val();
+        var value = $(this).is(":checked") ? 1 : 0;
+
+        $.ajax({
+            url: app_url + '/admin/role/update-permission-role',
+            type: 'POST', // GET, POST, PUT, PATCH, DELETE,
+            dataType: "JSON",
+            data: {
+                role_id: role_id,
+                permission_id: permission_id,
+                value: value
+            },
+            success: function success(res) {
+                if (!res.err) {
+                    toastr.success(res.msg);
+                } else {
+                    toastr.err(res.msg);
+                }
+            }
+        });
+    });
+});
 
 /***/ })
 

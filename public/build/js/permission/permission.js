@@ -76,7 +76,21 @@ module.exports = __webpack_require__(55);
 /***/ 55:
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: Error: ENOENT: no such file or directory, open '/Applications/XAMPP/xamppfiles/htdocs/ZentCMS/resources/assets/js/permission/permission.js'");
+$(document).ready(function () {
+
+    $('#permission_table').DataTable({
+        autoWidth: true,
+        processing: true,
+        serverSide: true,
+        ordering: false,
+        ajax: {
+            url: app_url + 'admin/permission/get-list-permission',
+            type: 'post'
+        },
+        searching: true,
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'display_name' }, { data: 'created_at', className: 'tx-center' }]
+    });
+});
 
 /***/ })
 

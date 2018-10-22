@@ -1,14 +1,27 @@
 <!-- ########## START: LEFT PANEL ########## -->
 <div class="br-logo"><a href=""><span>[</span>{{ env('APP_NAME') }}<span>]</span></a></div>
 <div class="br-sideleft overflow-y-auto">
-    <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.system_manager')</label>
     <div class="br-sideleft-menu">
-        <a href="#" class="br-menu-link active">
+
+        <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.all')</label>
+        <a href="{{ route('layout.index') }}" class="br-menu-link {{ request()->is('admin') ? 'active' : '' }}">
             <div class="br-menu-item">
                 <i class="menu-item-icon icon ion-ios-home-outline tx-22"></i>
                 <span class="menu-item-label">@lang('global.dashboard')</span>
             </div><!-- menu-item -->
         </a><!-- br-menu-link -->
+
+        <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.modules')</label>
+
+        <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.managers')</label>
+        <a href="{{ route('module.index') }}" class="br-menu-link {{ request()->is('admin/module*') ? 'active' : '' }}">
+            <div class="br-menu-item">
+                <i class="menu-item-icon icon ion-ios-folder-outline tx-22"></i>
+                <span class="menu-item-label">@lang('global.module_managers')</span>
+            </div><!-- menu-item -->
+        </a><!-- br-menu-link -->
+
+        <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.plugins')</label>
         {{--<a href="mailbox.html" class="br-menu-link">--}}
             {{--<div class="br-menu-item">--}}
                 {{--<i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>--}}
@@ -143,9 +156,9 @@
         {{--</a><!-- br-menu-link -->--}}
     </div><!-- br-sideleft-menu -->
 
-    <label class="sidebar-label pd-x-15 mg-t-25 mg-b-20 tx-info op-9">@lang('global.information_sumary')</label>
+    <label class="sidebar-label pd-x-15 mg-t-25 mg-b-20 ">@lang('global.information_sumary')</label>
 
-    <div class="info-list">
+    <div class="info-list" style="bottom: 0px;">
         <div class="d-flex align-items-center justify-content-between pd-x-15">
             <div>
                 <p class="tx-10 tx-roboto tx-uppercase tx-spacing-1 tx-white op-3 mg-b-2 space-nowrap">@lang('global.memory_usage')</p>

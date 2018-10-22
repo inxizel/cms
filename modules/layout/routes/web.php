@@ -9,13 +9,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group([ 'namespace' => 'Zent\Layout\Http\Controllers'], function () {
+Route::group([ 'namespace' => 'Zent\Layout\Http\Controllers', 'middleware' => ['locale']], function () {
 
     /**
      * Group route admin
      */
 
-    Route::group(['prefix' => 'admin', 'middleware' => ['locale']], function () {
+    Route::group(['prefix' => 'admin'], function () {
         Route::get('', 'LayoutController@index')->name('layout.index');
 
         Route::get('change_language/{locale}', function ($locale) {

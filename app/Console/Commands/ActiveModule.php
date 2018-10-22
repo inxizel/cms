@@ -43,21 +43,21 @@ class ActiveModule extends Command
         $name = $this->argument('module-name');
 
         try {
-            if (Module::checkModuleExistsByNameInFolder($name)) {
-
+            if (Module::checkModuleExistsByNameInFolder($name))
+            {
                 Module::activateModuleByName($name);
-
                 $this->info(Module::notifyActivateModule($name));
 
                 DB::commit();
-
                 return true;
 
-            }else {
+            } else {
+
                 $this->error( Module::notifyCheckModuleNotExistsByNameInFolder($name) );
                 return false;
             }
         } catch (\Exception $e) {
+
             $this->error($e->getMessage());
             return false;
         }

@@ -16,7 +16,7 @@ class {Core} extends Model
      * Fillables
      */
     
-    protected $fillable = ['name', 'note'];
+    protected $fillable = ['name', 'content', 'status'];
 
     /*
      * Soft Deletes

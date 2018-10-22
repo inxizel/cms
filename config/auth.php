@@ -73,6 +73,7 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => Zent\User\Models\User::class,
+            'table' => 'users',
         ],
 
         // 'users' => [

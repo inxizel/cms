@@ -9,7 +9,11 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.7.*",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^5.4.0"
+        "laravelcollective/html": "^5.4.0",
+        "mariuzzo/laravel-js-localization": "^1.4",
+        "symfony/process": "^4.1",
+        "yajra/laravel-datatables-oracle": "^8.9",
+        "zizaco/entrust": "^1.9"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

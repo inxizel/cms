@@ -7,21 +7,22 @@
 |
 */
 
-Route::group(['namespace' => 'Zent\{Core}\Http\Controllers'], function () {
+Route::group(['namespace' => 'Zent\{Core}\Http\Controllers', 'middleware' => ['locale']], function () {
 
     /**
      * Group route admin.
      */
-    Route::prefix('admin')->group(function () {
-        Route::get('{core_snake_case}', '{Core}Controller@index')->name('{core}.index');
+    Route::group(['prefix' => 'admin'], function () {
+        Route::resource('{core_snake_case}', '{Core}Controller');
     });
 
     /**
      * Group route customer.
      */
-    Route::prefix('home')->group(function () {
+    Route::group(['prefix' => 'home'], function () {
         Route::get('{core_snake_case}', '{Core}Controller@home')->name('{core}.home');
     });
+
 });
 
 

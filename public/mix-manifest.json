@@ -1,6 +1,10 @@
 {
     "/build/js/app.js": "/build/js/app.js",
     "/build/css/app.css": "/build/css/app.css",
+    "/build/js/user/user.js": "/build/js/user/user.js",
+    "/build/js/role/role.js": "/build/js/role/role.js",
+    "/build/js/permission/permission.js": "/build/js/permission/permission.js",
+    "/build/js/module/module.js": "/build/js/module/module.js",
     "/build/js/global.js": "/build/js/global.js",
     "/build/js/dashboard.js": "/build/js/dashboard.js",
     "/build/js/ResizeSensor.js": "/build/js/ResizeSensor.js",

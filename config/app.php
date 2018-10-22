@@ -160,7 +160,12 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\ModuleServiceProvider::class
+        App\Providers\ModuleServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Mariuzzo\LaravelJsLocalization\LaravelJsLocalizationServiceProvider::class,
+        App\Providers\MenuServiceProvider::class,
+        yajra\Datatables\DatatablesServiceProvider::class,
+        Zizaco\Entrust\EntrustServiceProvider::class,
 
     ],
 
@@ -210,6 +215,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
+        'DataTables' => yajra\Datatables\Datatables::class,
+        'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
 
     ],
 
