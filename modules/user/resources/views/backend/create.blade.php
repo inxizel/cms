@@ -56,8 +56,8 @@
             <div class="form-group">
                 <label for="" class="tx-bold">@lang('user.status')</label>
                 <select class="form-control" name="status" id="status">
-                    <option value="1">@lang('global.show')</option>
-                    <option value="0">@lang('global.hide')</option>
+                    <option value="1">@lang('global.active')</option>
+                    <option value="0">@lang('global.deactive')</option>
                 </select>
             </div>
 

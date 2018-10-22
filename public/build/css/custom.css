@@ -250,7 +250,7 @@ body {
     border-color: #4e81c0 !important;
 }
 
-#permission_role_table input[type=checkbox]
+#permission_role_table input[type=checkbox], #role_user_table input[type=checkbox]
 {
     /* Double-sized Checkboxes */
     -ms-transform: scale(1.5); /* IE */

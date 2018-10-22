@@ -2,6 +2,7 @@
 
 namespace Zent\User\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -10,7 +11,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use EntrustUserTrait;
+    use EntrustUserTrait { restore as private restoreA; }
+    use SoftDeletes { restore as private restoreB; }
 
     /*
      * Tables
@@ -30,4 +32,9 @@ class User extends Authenticatable
 
     protected $dates = ['deleted_at'];
 
+    public function restore()
+    {
+        $this->restoreA();
+        $this->restoreB();
+    }
 }

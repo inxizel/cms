@@ -27,12 +27,13 @@
                 <thead>
                     <tr>
                         <th class="wd-5p">@lang('global.order')</th>
-                        <th class="wd-25p">@lang('global.name')</th>
-                        <th class="wd-10p">@lang('global.birthday')</th>
+                        <th class="wd-20p">@lang('global.name')</th>
+                        <th calss="wd-10p">@lang('global.email')</th>
+                        <th class="wd-15p">@lang('global.birthday')</th>
                         <th class="wd-10p">@lang('global.gender')</th>
                         <th class="wd-10p">@lang('global.type')</th>
                         <th class="wd-10p">@lang('global.status')</th>
-                        <th class="wd-30p">@lang('global.action')</th>
+                        <th class="wd-20p">@lang('global.action')</th>
                     </tr>
                 </thead>
             </table>
@@ -42,39 +43,4 @@
 
 @section('script')
     <script src="{{ mix('build/js/user/user.js') }}"></script>
-    <script>
-        $('#user_table').on('click', '.btn-danger', function (event) {
-            event.preventDefault();
-
-            swal({
-                title: Lang.get('global.are_you_sure_to_delete'),
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#00b297',
-                cancelButtonColor: '#d33',
-                confirmButtonText: Lang.get('global.confirm'),
-                cancelButtonText: Lang.get('global.cancle')
-            }).then((result) => {
-                if (result.value) {
-
-                    $.ajax({
-                        url: $(this).data('action'),
-                        type: 'DELETE',
-                        dataType: "JSON",
-                        data: {
-                            id: $(this).data('id')
-                        },
-                        success: function (res)
-                        {
-                            if (!res.err) {
-                                setTimeout( function () {
-                                    window.location.reload();
-                                }, 0);
-                            }
-                        }
-                    });
-                }
-            });
-        });
-    </script>
 @endsection

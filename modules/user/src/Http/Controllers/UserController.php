@@ -2,12 +2,15 @@
 
 namespace Zent\User\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Zent\User\Models\User;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Models\Module;
 use View;
+use Zent\Role\Models\RoleUser;
+use Zent\Role\Models\Role;
 
 class UserController extends Controller
 {
@@ -96,13 +99,23 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        User::find($id)->update($request->all());
+        DB::beginTransaction();
 
-        Session::flash('update_success', trans('global.update_success'));
+        try {
+            parse_str($request->data, $data);
+            User::find($data['user_id'])->update($data);
 
-        return redirect()->route('user.index');
+            DB::commit();
+            return response()->json(['err' => false, 'msg' => trans('global.update_success')]);
+
+        } catch (\Exception $e) {
+
+            DB::rollback();
+            return response()->json(['err' => true, 'msg' => $e->getMessage()]);
+        }
+
     }
 
     /**
@@ -134,6 +147,12 @@ class UserController extends Controller
 
         return DataTables::of($users)
             ->addIndexColumn()
+            ->editColumn('email', function($user) {
+                return '<a href="mailto:'.$user->email.'">'.$user->email.'</a>';
+            })
+            ->editColumn('birthday', function($user) {
+                return !is_null($user->birthday) ? $user->birthday : trans('global.not_updated');
+            })
             ->editColumn('gender', function($user) {
                 switch ($user->gender)
                 {
@@ -159,9 +178,11 @@ class UserController extends Controller
             ->addColumn('action', function($user) {
                 $txt = "";
 
-                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="left" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-role" data-tooltip="tooltip" data-placement="left" title="'.trans('global.role').'"/><i class="fa fa-handshake-o" aria-hidden="true"></i></i></button>';
 
-                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+
+                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
 
                 return $txt;
             })
@@ -176,14 +197,90 @@ class UserController extends Controller
                         return "???";
                 }
             })
-            ->rawColumns(['name','gender', 'type', 'status', 'action'])
+            ->rawColumns(['name','gender', 'type', 'status', 'action', 'email'])
             ->toJson();
     }
 
     public static function checkUniqueEmail($email)
     {
-        $flag = User::where('email', $email)->count();
+        $flag = User::where('email', $email)->withTrashed()->count();
 
         return $flag > 0 ? true : false;
+    }
+    
+    /**
+     * 
+     */
+    public static function roleUser($user_id)
+    {
+        $user = User::find($user_id);
+
+        return View('user::backend.role_user', compact('user'));
+    }
+    
+    /**
+     * 
+     */
+    public static function getListRoleUser(Request $request)
+    {
+        $roles = Role::orderBy('id', 'desc')->get();
+
+        $role_users = RoleUser::getArrayRole($request->user_id);
+
+        foreach ($roles as $role)
+        {
+            $role->checked = in_array($role->id, $role_users) ? "checked" : null;
+        }
+
+        return DataTables::of($roles)
+            ->addIndexColumn()
+            ->addColumn('action', function ($role){
+                $txt = "";
+
+                $txt .= '<input type="checkbox" name="" data-id="'.$role->id.'" class="btn-role-user" '.$role->checked.'>';
+
+                return $txt;
+            })
+            ->editColumn('created_at', function ($role) {
+                return date('H:i | d-m-Y', strtotime($role->created_at));
+            })
+            ->editColumn('description', function ($role) {
+                return !is_null($role->description) ? $role->description : trans('global.not_updated');
+            })
+            ->toJson();
+    }
+    
+    /**
+     * 
+     */
+    public static function updateRoleUser(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+
+            $data = [
+                'user_id'       => $request->user_id,
+                'role_id'       => $request->role_id
+            ];
+
+            $check = RoleUser::checkRoleUserExist($data);
+
+            if (!$check)
+            {
+                RoleUser::create($data);
+                $msg = trans('global.create_success');
+            } else
+            {
+                RoleUser::remove($data);
+                $msg = trans('global.delete_success');
+            }
+
+            DB::commit();
+            return response()->json([ 'err' => false, 'msg' =>  $msg]);
+
+        } catch (\Exception $e) {
+            return response()->json(['err'  =>  true, 'msg' =>  $e->getMessage()]);
+        }
     }
 }
