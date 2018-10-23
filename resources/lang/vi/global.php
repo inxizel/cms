@@ -86,5 +86,11 @@ return [
     'description'   =>  'Miêu tả',
     'list'  =>  'Danh sách',
     'permission'    =>  'Quyền hạn',
-    'role'  =>  'Vai trò'
+    'role'  =>  'Vai trò',
+    'level' =>  'Mức độ',
+    'context'   =>  'Môi trường',
+    'info'  =>  'Thông tin',
+    'download_file' =>  'Tải xuống file log',
+    'clean_file'    =>  'Xoá nội dung',
+    'delete_file'   =>  'Xoá file log'
 ];

@@ -5,6 +5,7 @@
     "/build/js/role/role.js": "/build/js/role/role.js",
     "/build/js/permission/permission.js": "/build/js/permission/permission.js",
     "/build/js/module/module.js": "/build/js/module/module.js",
+    "/build/js/log/log.js": "/build/js/log/log.js",
     "/build/js/global.js": "/build/js/global.js",
     "/build/js/dashboard.js": "/build/js/dashboard.js",
     "/build/js/ResizeSensor.js": "/build/js/ResizeSensor.js",

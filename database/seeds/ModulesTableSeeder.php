@@ -55,5 +55,12 @@ class ModulesTableSeeder extends Seeder
             'module_category_id'    =>  3,
             'status'    =>  1
         ]);
+
+        Module::create([
+            'name'  =>  'system_log',
+            'display_name'  =>  'Log hệ thống',
+            'module_category_id'    =>  3,
+            'status'    =>  1
+        ]);
     }
 }
