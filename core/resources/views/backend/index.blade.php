@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item active" href="{{ route('{core}.index') }}">{{ $display_name }}</a>
+    <a class="breadcrumb-item active" href="{{ route('{core_snake_case}.index') }}">{{ $display_name }}</a>
     {{-- use lang in file global --}}
 @endsection
 
@@ -16,7 +16,7 @@
 
         {{-- Bg content --}}
         <div class="col-sm-1 col-md-1 pd-0">
-            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('{core}.create') }}'">
+            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('{core_snake_case}.create') }}'">
                 <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
                 @lang('global.add')
             </button>
