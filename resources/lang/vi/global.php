@@ -92,5 +92,10 @@ return [
     'info'  =>  'Thông tin',
     'download_file' =>  'Tải xuống file log',
     'clean_file'    =>  'Xoá nội dung',
-    'delete_file'   =>  'Xoá file log'
+    'delete_file'   =>  'Xoá file log',
+    'ip'    =>  'IP',
+    'method'    =>  'Phương thức',
+    'link'  =>  'Link',
+    'time'  =>  'Thời gian',
+    'user_agent'    =>  'Thiết bị'
 ];

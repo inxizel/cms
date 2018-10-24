@@ -12,6 +12,7 @@
         "laravelcollective/html": "^5.4.0",
         "mariuzzo/laravel-js-localization": "^1.4",
         "rap2hpoutre/laravel-log-viewer": "^0.22.1",
+        "spatie/laravel-activitylog": "^3.1",
         "symfony/process": "^4.1",
         "yajra/laravel-datatables-oracle": "^8.9",
         "zizaco/entrust": "^1.9"

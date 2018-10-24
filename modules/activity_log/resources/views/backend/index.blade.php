@@ -1,7 +1,7 @@
 @extends('layout::backend.master')
 
 @section('breadcrumb')
-    <a class="breadcrumb-item active" href="{{ route('{core_snake_case}.index') }}">{{ $display_name }}</a>
+    <a class="breadcrumb-item active" href="{{ route('activity_log.index') }}">{{ $display_name }}</a>
     {{-- use lang in file global --}}
 @endsection
 
@@ -14,26 +14,18 @@
         </h6>
         <hr> <br>
 
-        {{-- Bg content --}}
-        <div class="col-sm-1 col-md-1 pd-0">
-            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('{core_snake_case}.create') }}'">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
-                @lang('global.add')
-            </button>
-        </div>
-
-        <br>
-
         <div class="rounded table-responsive">
-            <table class="table table-bordered mg-b-0" id="{core_snake_case}_table">
+            <table class="table table-bordered mg-b-0" id="activity_log_table">
                 <thead>
                 <tr>
-                    <th class="wd-5p">@lang('global.order')</th>
-                    <th class="wd-25p">@lang('global.name')</th>
-                    <th class="wd-25p">@lang('global.content')</th>
-                    <th class="wd-10p">@lang('global.status')</th>
-                    <th class="wd-20p">@lang('global.created_at')</th>
-                    <th class="wd-15p">@lang('global.action')</th>
+                    <th>@lang('global.order')</th>
+                    <th>@lang('global.ip')</th>
+                    <th>@lang('global.user')</th>
+                    <th>@lang('global.method')</th>
+                    <th>@lang('global.link')</th>
+                    <th>@lang('global.time')</th>
+                    <th>@lang('global.user_agent')</th>
+                    <th>@lang('global.action')</th>
                 </tr>
                 </thead>
             </table>
@@ -49,31 +41,33 @@
 
         $(document).ready(function () {
 
-            $('#{core_snake_case}_table').DataTable({
+            $('#activity_log_table').DataTable({
                 autoWidth: true,
                 processing: true,
                 serverSide: true,
                 ordering: false,
                 ajax: {
-                    url: app_url + 'admin/{core_snake_case}/get_list_{core_snake_case}',
+                    url: app_url + 'admin/activity_log/get_list_activity_log',
                     type: 'post'
                 },
                 searching: true,
                 columns: [
-                    {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
-                    {data: 'name'},
-                    {data: 'content'},
-                    {data: 'status', className: 'tx-center'},
-                    {data: 'created_at', className: 'tx-center'},
-                    {data: 'action', className: 'tx-center'},
+                    {data: 'DT_Row_Index', orderable: false, searchable: false, 'class':'dt-center'},
+                    {data: 'ip_user', name: 'ip_user', 'class':'dt-center'},
+                    {data: 'causer_id', name: 'causer_id'},
+                    {data: 'methodType', name: 'methodType', 'class':'dt-center'},
+                    {data: 'description', name: 'description'},
+                    {data: 'created_at', name: 'created_at', orderable: false, searchable: false, 'class':'dt-center'},
+                    {data: 'userAgent', name: 'userAgent', orderable: false, searchable: false, 'class':'dt-center dt-agent'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false, 'class':'dt-center'},
                 ],
             });
 
-            $('#{core_snake_case}_table').on('click', '.btn-edit', function () {
-                window.location.href = app_url + 'admin/{core_snake_case}/' + $(this).data('id') + '/edit';
+            $('#activity_log_table').on('click', '.btn-edit', function () {
+                window.location.href = app_url + 'admin/activity_log/' + $(this).data('id') + '/edit';
             });
 
-            $('#{core_snake_case}_table').on('click', '.btn-delete', function (event) {
+            $('#activity_log_table').on('click', '.btn-delete', function (event) {
                 event.preventDefault();
 
                 swal({
@@ -88,7 +82,7 @@
                     if (result.value) {
 
                         $.ajax({
-                            url: app_url + 'admin/{core_snake_case}/' + $(this).data('id'),
+                            url: app_url + 'admin/activity_log/' + $(this).data('id'),
                             type: 'DELETE',
                             dataType: "JSON",
                             data: {
@@ -98,7 +92,7 @@
                             {
                                 if (!res.err) {
                                     toastr.success(res.msg);
-                                    $('#{core_snake_case}_table').DataTable().ajax.reload();
+                                    $('#activity_log_table').DataTable().ajax.reload();
                                 } else {
                                     toastr.error(res.msg);
                                 }

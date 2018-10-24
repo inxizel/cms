@@ -37,4 +37,9 @@ class User extends Authenticatable
         $this->restoreA();
         $this->restoreB();
     }
+
+    public function activity_log()
+    {
+        return $this->hasMany('Zent\ActivityLog\Models\ActivityLog', 'id', 'causer_id');
+    }
 }
