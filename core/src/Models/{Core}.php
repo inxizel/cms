@@ -12,7 +12,7 @@ class {Core} extends Model
      * Tables
      */
     
-    protected $tables = "{core_snake_case}s";
+    protected $table = "{core_snake_case}s";
 
     /*
      * Fillables
