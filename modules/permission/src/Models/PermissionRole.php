@@ -12,7 +12,7 @@ class PermissionRole extends Model
      *
      * @var array
      */
-    protected $table = "permission_role";
+    protected $table = "permission_roles";
 
     // protected $primaryKey = ['permission_id', 'role_id'];
 

@@ -23,7 +23,7 @@ class CreateCustomersTable extends Migration
             $table->tinyInteger('gender')->default(0)->comment('0: Female, 1: Male');
             $table->string('birthday')->nullable()->comment('Y-m-d H:i:s');
             $table->string('mobile')->nullable();
-            $table->tinyInteger('type')->default(0)->comment('0: user, 1: admin');
+            $table->tinyInteger('type')->default(0)->comment('0: normal, 1: vip');
             $table->timestamps();
             $table->softDeletes();
         });

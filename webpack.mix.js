@@ -24,6 +24,7 @@ mix.js('resources/assets/js/module/module.js', 'public/build/js/module/module.js
 mix.js('resources/assets/js/user/user.js', 'public/build/js/user/user.js');
 mix.js('resources/assets/js/permission/permission.js', 'public/build/js/permission/permission.js');
 mix.js('resources/assets/js/role/role.js', 'public/build/js/role/role.js');
+mix.js('resources/assets/js/customer/customer.js', 'public/build/js/customer/customer.js');
 //
 const WebpackShellPlugin = require('webpack-shell-plugin');
 

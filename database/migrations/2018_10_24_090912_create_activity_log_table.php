@@ -14,15 +14,19 @@ class CreateActivityLogTable extends Migration
         Schema::create(config('activitylog.table_name'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('log_name')->nullable();
-            $table->text('description');
+            $table->text('description')->comment('Link sử dụng');
             $table->integer('subject_id')->nullable();
             $table->string('subject_type')->nullable();
-            $table->integer('causer_id')->nullable();
-            $table->string('causer_type')->nullable();
-            $table->text('properties')->nullable();
+            $table->integer('causer_id')->nullable()->comment('ID người dùng');
+            $table->string('causer_type')->nullable()->comment('Model người dùng');
+            $table->string('ip_user')->nullable()->comment('Ip sử dụng');
+            $table->string('methodType')->nullable()->comment('Kiểu method sử dụng');
+            $table->string('userAgent')->nullable()->comment('Thông tin trình duyệt');
+            $table->text('properties')->nullable()->comment('request dữ liệu');
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->index('log_name');
+//            $table->index('log_name');
         });
     }
 
