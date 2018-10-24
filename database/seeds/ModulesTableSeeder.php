@@ -22,17 +22,17 @@ class ModulesTableSeeder extends Seeder
         ]);
 
         Module::create([
-            'name'  =>  'user',
-            'display_name'  =>  'Người dùng',
+            'name'  =>  'customer',
+            'display_name'  =>  'Khách hàng',
             'module_category_id'    =>  2,
             'status'    =>  1
         ]);
 
         Module::create([
-            'name'  =>  'customer',
-            'display_name'  =>  'Khách hàng',
+            'name'  =>  'user',
+            'display_name'  =>  'Người dùng',
             'module_category_id'    =>  2,
-            'status'    =>  0
+            'status'    =>  1
         ]);
 
         Module::create([
@@ -59,6 +59,13 @@ class ModulesTableSeeder extends Seeder
         Module::create([
             'name'  =>  'system_log',
             'display_name'  =>  'Log hệ thống',
+            'module_category_id'    =>  3,
+            'status'    =>  1
+        ]);
+
+        Module::create([
+            'name'  =>  'activity_log',
+            'display_name'  =>  'Lịch sử hoạt động',
             'module_category_id'    =>  3,
             'status'    =>  1
         ]);

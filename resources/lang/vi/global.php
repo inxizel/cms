@@ -97,5 +97,7 @@ return [
     'method'    =>  'Phương thức',
     'link'  =>  'Link',
     'time'  =>  'Thời gian',
-    'user_agent'    =>  'Thiết bị'
+    'user_agent'    =>  'Thiết bị',
+    'customer_normal'   =>  'Khách thường',
+    'customer_vip'  =>  'Khách vip'
 ];

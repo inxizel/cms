@@ -15,7 +15,7 @@ class RoleUser extends Model
         'user_id', 'role_id',
     ];
 
-    protected $table = "role_user";
+    protected $table = "role_users";
 
     /**
      * Get array role of user

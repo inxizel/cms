@@ -219,7 +219,7 @@ class Module extends Model
         return self::where([
                         'module_category_id' => 2,
                         'status'             => 1
-                    ])->orderBy('id', 'desc')->get();
+                    ])->get();
     }
 
     public static function getListMenuPlugin()
