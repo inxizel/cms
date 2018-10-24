@@ -166,9 +166,8 @@ return [
         App\Providers\MenuServiceProvider::class,
         yajra\Datatables\DatatablesServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
-        jeremykenedy\LaravelLogger\LaravelLoggerServiceProvider::class,
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
-
+        Spatie\Activitylog\ActivitylogServiceProvider::class,
     ],
 
     /*

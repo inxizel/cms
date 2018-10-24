@@ -270,4 +270,37 @@ body {
     color: #00b297;
 }
 
+th{
+    text-align: center;
+}
+.dt-center{
+    text-align: center;
+}
+.dt-agent i, #user-agent i{
+    margin-left: 6px;
+    display: inline !important;
+}
+.dt-agent sup, #user-agent sup{
+    margin-left: 3px;
+    display: inline;
+}
+.dt-agent i span, #user-agent i span{
+    margin-left: 4px;
+    display: none;
+}
+.user-name{
+    color:blue;
+}
+.dt-method, #act-method span{
+    color: white;
+    text-transform: uppercase;
+    padding: 4px 6px 2px;
+    border-radius: 12px!important;
+}
+#act-link{
+    word-break: break-all;
+}
 
+#system_log_table ul {
+    padding-left: 15px;
+}

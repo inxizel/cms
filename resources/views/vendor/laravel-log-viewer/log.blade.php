@@ -45,9 +45,7 @@
                     <thead>
                         <tr>
                             <th class="wd-5p">@lang('global.order')</th>
-                            <th class="wd-10p">@lang('global.level')</th>
-                            <th class="wd-15p">@lang('global.context')</th>
-                            <th class="wd-15p">@lang('global.created_at')</th>
+                            <th class="wd-35p">@lang('global.level')</th>
                             <th class="wd-55p">@lang('global.content')</th>
                         </tr>
                     </thead>
@@ -55,9 +53,14 @@
                         @if (isset($logs)) @foreach ($logs as $key => $log)
                             <tr>
                                 <td align="center">{{ $key + 1 }}</td>
-                                <td align="center">{{ $log['level'] }}</td>
-                                <td align="center">{{ $log['context'] }}</td>
-                                <td align="center">{{ date('H:i | d-m-Y', strtotime($log['date'])) }}</td>
+                                <td align="center">
+                                    <ul>
+                                        <li>{{ $log['level'] }}</li>
+                                        <li>{{ $log['context'] }}</li>
+                                        <li>{{ date('H:i', strtotime($log['date'])) }}</li>
+                                        <li>{{ date('d-m-Y', strtotime($log['date'])) }}</li>
+                                    </ul>
+                                </td>
                                 <td>{!! (string)$log['text'] !!}</td>
                             </tr>
                             @endforeach @endif
