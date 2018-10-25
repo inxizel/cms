@@ -273,9 +273,7 @@ body {
 th{
     text-align: center;
 }
-.dt-center{
-    text-align: center;
-}
+
 .dt-agent i, #user-agent i{
     margin-left: 6px;
     display: inline !important;

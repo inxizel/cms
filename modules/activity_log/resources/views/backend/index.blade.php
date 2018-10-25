@@ -17,17 +17,17 @@
         <div class="rounded table-responsive">
             <table class="table table-bordered mg-b-0" id="activity_log_table">
                 <thead>
-                <tr>
-                    <th class="wd-5p">@lang('global.order')</th>
-                    <th>@lang('global.ip')</th>
-                    <th>@lang('global.user')</th>
-                    {{--<th>@lang('global.userType')</th>--}}
-                    <th>@lang('global.route')</th>
-                    <th>@lang('global.user_agent')</th>
-                    {{--<th>@lang('global.locale')</th>--}}
-                    {{--<th>@lang('global.referer')</th>--}}
-                    <th>@lang('global.method')</th>
-                </tr>
+                    <tr>
+                        <th class="wd-5p">@lang('global.order')</th>
+                        <th>@lang('global.ip')</th>
+                        <th>@lang('global.user')</th>
+                        {{--<th>@lang('global.userType')</th>--}}
+                        <th>@lang('global.route')</th>
+                        <th>@lang('global.user_agent')</th>
+                        {{--<th>@lang('global.locale')</th>--}}
+                        {{--<th>@lang('global.referer')</th>--}}
+                        <th>@lang('global.method')</th>
+                    </tr>
                 </thead>
             </table>
         </div>
@@ -54,14 +54,14 @@
                 searching: true,
                 columns: [
                     {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
-                    {data: 'ipAddress'},
+                    {data: 'ipAddress', className: 'tx-center'},
                     {data: 'userId'},
                     // {data: 'userType'},
                     {data: 'route'},
-                    {data: 'userAgent'},
+                    {data: 'userAgent', className:'dt-agent tx-center'},
                     // {data: 'locale'},
                     // {data: 'referer'},
-                    {data: 'methodType'},
+                    {data: 'methodType', className: 'tx-center'},
                 ],
             });
 
