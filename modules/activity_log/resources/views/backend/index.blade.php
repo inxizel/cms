@@ -14,26 +14,19 @@
         </h6>
         <hr> <br>
 
-        {{-- Bg content --}}
-        <div class="col-sm-1 col-md-1 pd-0">
-            <button class="btn btn-info btn-block mg-b-20" onclick="window.location='{{ route('activity_log.create') }}'">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
-                @lang('global.add')
-            </button>
-        </div>
-
-        <br>
-
         <div class="rounded table-responsive">
             <table class="table table-bordered mg-b-0" id="activity_log_table">
                 <thead>
                 <tr>
                     <th class="wd-5p">@lang('global.order')</th>
-                    <th class="wd-25p">@lang('global.name')</th>
-                    <th class="wd-25p">@lang('global.content')</th>
-                    <th class="wd-10p">@lang('global.status')</th>
-                    <th class="wd-20p">@lang('global.created_at')</th>
-                    <th class="wd-15p">@lang('global.action')</th>
+                    <th>@lang('global.ip')</th>
+                    <th>@lang('global.user')</th>
+                    {{--<th>@lang('global.userType')</th>--}}
+                    <th>@lang('global.route')</th>
+                    <th>@lang('global.user_agent')</th>
+                    {{--<th>@lang('global.locale')</th>--}}
+                    {{--<th>@lang('global.referer')</th>--}}
+                    <th>@lang('global.method')</th>
                 </tr>
                 </thead>
             </table>
@@ -61,11 +54,14 @@
                 searching: true,
                 columns: [
                     {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
-                    {data: 'name'},
-                    {data: 'content'},
-                    {data: 'status', className: 'tx-center'},
-                    {data: 'created_at', className: 'tx-center'},
-                    {data: 'action', className: 'tx-center'},
+                    {data: 'ipAddress'},
+                    {data: 'userId'},
+                    // {data: 'userType'},
+                    {data: 'route'},
+                    {data: 'userAgent'},
+                    // {data: 'locale'},
+                    // {data: 'referer'},
+                    {data: 'methodType'},
                 ],
             });
 

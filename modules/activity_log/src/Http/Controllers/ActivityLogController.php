@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use View;
+use Zent\User\Models\User;
 
 class ActivityLogController extends Controller
 {
@@ -146,31 +147,10 @@ class ActivityLogController extends Controller
 
         return DataTables::of($activity_logs)
             ->addIndexColumn()
-            ->addColumn('action', function ($activity_log) {
-                $txt = "";
-
-    //                if ( Entrust::can(['// here']))
-    //                {
-                $txt .= '<button data-id="' . $activity_log->id . '" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="' . trans('global.edit') . '"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
-    //                }
-
-    //                if ( Entrust::can(['// here']))
-    //                {
-                $txt .= '<button data-id="' . $activity_log->id . '" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="top" title="' . trans('global.delete') . '"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
-    //                }
-
-                return $txt;
+            ->editColumn('userId', function ($activity_log) {
+                $user = User::find($activity_log->userId);
+                return !is_null($user) ? $user->name : null;
             })
-            ->editColumn('created_at', function ($activity_log) {
-                return date('H:i | d-m-Y', strtotime($activity_log->created_at));
-            })
-            ->editColumn('content', function ($activity_log) {
-                return !is_null($activity_log->content) ? $activity_log->content : trans('global.not_updated');
-            })
-            ->editColumn('status', function ($activity_log) {
-                return ($activity_log->status == 1) ? trans('global.show') : trans('global.hide');
-            })
-            ->rawColumns(['action'])
             ->toJson();
     }
 }

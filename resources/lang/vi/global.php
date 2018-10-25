@@ -99,5 +99,6 @@ return [
     'time'  =>  'Thời gian',
     'user_agent'    =>  'Thiết bị',
     'customer_normal'   =>  'Khách thường',
-    'customer_vip'  =>  'Khách vip'
+    'customer_vip'  =>  'Khách vip',
+    'route' =>  'Đường dẫn'
 ];
