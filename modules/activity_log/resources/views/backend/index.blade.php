@@ -17,16 +17,17 @@
         <div class="rounded table-responsive">
             <table class="table table-bordered mg-b-0" id="activity_log_table">
                 <thead>
-                <tr>
-                    <th>@lang('global.order')</th>
-                    <th>@lang('global.ip')</th>
-                    <th>@lang('global.user')</th>
-                    <th>@lang('global.method')</th>
-                    <th>@lang('global.link')</th>
-                    <th>@lang('global.time')</th>
-                    <th>@lang('global.user_agent')</th>
-                    <th>@lang('global.action')</th>
-                </tr>
+                    <tr>
+                        <th class="wd-5p">@lang('global.order')</th>
+                        <th>@lang('global.ip')</th>
+                        <th>@lang('global.user')</th>
+                        {{--<th>@lang('global.userType')</th>--}}
+                        <th>@lang('global.route')</th>
+                        <th>@lang('global.user_agent')</th>
+                        {{--<th>@lang('global.locale')</th>--}}
+                        {{--<th>@lang('global.referer')</th>--}}
+                        <th>@lang('global.method')</th>
+                    </tr>
                 </thead>
             </table>
         </div>
@@ -52,14 +53,15 @@
                 },
                 searching: true,
                 columns: [
-                    {data: 'DT_Row_Index', orderable: false, searchable: false, 'class':'dt-center'},
-                    {data: 'ip_user', name: 'ip_user', 'class':'dt-center'},
-                    {data: 'causer_id', name: 'causer_id'},
-                    {data: 'methodType', name: 'methodType', 'class':'dt-center'},
-                    {data: 'description', name: 'description'},
-                    {data: 'created_at', name: 'created_at', orderable: false, searchable: false, 'class':'dt-center'},
-                    {data: 'userAgent', name: 'userAgent', orderable: false, searchable: false, 'class':'dt-center dt-agent'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false, 'class':'dt-center'},
+                    {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
+                    {data: 'ipAddress', className: 'tx-center'},
+                    {data: 'userId'},
+                    // {data: 'userType'},
+                    {data: 'route'},
+                    {data: 'userAgent', className:'dt-agent tx-center'},
+                    // {data: 'locale'},
+                    // {data: 'referer'},
+                    {data: 'methodType', className: 'tx-center'},
                 ],
             });
 

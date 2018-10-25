@@ -4,20 +4,25 @@ namespace Zent\ActivityLog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\Activitylog\Traits\LogsActivity;
 
 class ActivityLog extends Model
 {
     use SoftDeletes;
-    use LogsActivity;
+    /*
+     * Tables
+     */
+    
+    protected $table = "laravel_logger_activity";
 
-    protected $table = 'activity_log';
+    /*
+     * Fillables
+     */
+    
+    protected $fillable = ['description', 'userType', 'userId', 'route', 'ipAddress', 'userAgent', 'locale', 'referer', 'methodType'];
 
-    protected $fillable = [
-        'log_name', 'description', 'subject_id', 'subject_type', 'causer_id', 'causer_type', 'ip_user', 'methodType', 'userAgent', 'properties', 'created_at', 'updated_at', 'deleted_at'
-    ];
-
-    public function user(){
-        return $this->belongsTo('Zent\User\Models\User', 'causer_id', 'id');
-    }
+    /*
+     * Soft Deletes
+     */
+    
+    protected $dates = ['deleted_at'];
 }

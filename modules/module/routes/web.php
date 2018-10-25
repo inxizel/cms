@@ -9,7 +9,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['namespace' => 'Zent\Module\Http\Controllers', 'middleware' => ['locale']], function () {
+Route::group(['namespace' => 'Zent\Module\Http\Controllers', 'middleware' => ['locale', 'activity']], function () {
 
     /**
      * Group route admin.

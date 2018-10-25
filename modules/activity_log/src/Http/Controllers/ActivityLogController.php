@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use View;
+use Zent\User\Models\User;
 
 class ActivityLogController extends Controller
 {
@@ -142,39 +143,20 @@ class ActivityLogController extends Controller
      */
     public static function getListActivityLog()
     {
-        $activities = ActivityLog::orderBy('id', 'desc')->get();
+        $activity_logs = ActivityLog::orderBy('id', 'desc')->get();
 
-        return Datatables::of($activities)
+        return DataTables::of($activity_logs)
             ->addIndexColumn()
-            ->editcolumn('created_at', function($activity){
-                $date = date('H:i | d-m-Y', strtotime($activity->created_at));
-
-                return $date;
+            ->editColumn('userId', function ($activity_log) {
+                $user = User::find($activity_log->userId);
+                return !is_null($user) ? $user->name : null;
             })
-            ->editColumn('causer_id', function($activity){
-                if($activity->causer_id){
-                    return "<span class='user-name'>".$activity->user->name."</span>";
-                }else{
-                    return "<span class='user-name'>(chưa có)</span>";
-                }
+            ->editColumn('route', function ($activity_log) {
+                return '<a href="'.$activity_log->route.'">'.$activity_log->route.'</a>';
             })
-            ->editColumn('userAgent', function($activity){
-                $userAgentDetails = self::details($activity->userAgent);
+            ->editColumn('methodType', function ($activity) {
+                $string  = "";
 
-                $data = self::getUserAgent($userAgentDetails);
-
-                return "<i class='fa ".$data['platformIcon']."'><span>".$userAgentDetails['platform']."</span></i><i class='fa ".$data['browserIcon']."'><span>".$userAgentDetails['browser']."</span></i><sup>".$userAgentDetails['version']."</sup>";
-            })
-            ->editColumn('description', function($activity){
-                if(strlen($activity->description)>70){
-                    $link =  substr($activity->description, 0, 70).'...';
-                }else{
-                    $link = $activity->description;
-                }
-
-                return $link;
-            })
-            ->editColumn('methodType', function($activity){
                 if(strtoupper($activity->methodType)=='GET'){
                     $string = "<span class='dt-method' style='background-color: #659be0;'>".$activity->methodType."</span>";
                 }elseif (strtoupper($activity->methodType)=='POST') {
@@ -183,18 +165,164 @@ class ActivityLogController extends Controller
                     $string = "<span class='dt-method' style='background-color: red;'>".$activity->methodType."</span>";
                 }elseif (strtoupper($activity->methodType)=='PUT') {
                     $string = "<span class='dt-method' style='background-color: blue;'>".$activity->methodType."</span>";
-                }elseif (strtoupper($activity->methodType)=='PATH') {
+                }elseif (strtoupper($activity->methodType)=='PATCH') {
                     $string = "<span class='dt-method' style='background-color: green;'>".$activity->methodType."</span>";
                 }
 
                 return $string;
             })
-            ->addColumn('action', function($activity){
-                return '<a type="button" href="'.route('list-activity-users', ['user_id'=>$activity->causer_id, 'activity_id'=>$activity->id]).'" class="btn btn-xs blue" data-tooltip="tooltip" title="Xem chi tiết">
-                            <i class="fa  fa-eye"></i>  
-                          </a>';
+            ->editColumn('userAgent', function($activity){
+                $userAgentDetails = self::details($activity->userAgent);
+
+                $data = self::getUserAgent($userAgentDetails);
+
+                return "<i class='fa ".$data['platformIcon']."'><span>".$userAgentDetails['platform']."</span></i><i class='fa ".$data['browserIcon']."'><span>".$userAgentDetails['browser']."</span></i><sup>".$userAgentDetails['version']."</sup>";
             })
-            ->rawColumns(['causer_id', 'userAgent', 'description', 'methodType', 'action'])
+            ->rawColumns(['methodType', 'route', 'userAgent'])
             ->toJson();
+    }
+
+    /**
+     *
+     */
+    public static function getUserAgent($userAgentDetails){
+        $platform       = $userAgentDetails['platform'];
+        $browser        = $userAgentDetails['browser'];
+
+        switch ($platform) {
+
+            case 'Windows':
+                $platformIcon = 'fa-windows';
+                break;
+
+            case 'iPad':
+                $platformIcon = 'fa-';
+                break;
+
+            case 'iPhone':
+                $platformIcon = 'fa-';
+                break;
+
+            case 'Macintosh':
+                $platformIcon = 'fa-apple';
+                break;
+
+            case 'Android':
+                $platformIcon = 'fa-android';
+                break;
+
+            case 'BlackBerry':
+                $platformIcon = 'fa-';
+                break;
+
+            case 'Unix':
+            case 'Linux':
+                $platformIcon = 'fa-linux';
+                break;
+
+            default:
+                $platformIcon = 'fa-';
+                break;
+        }
+
+        switch ($browser) {
+
+            case 'Chrome':
+                $browserIcon  = 'fa-chrome';
+                break;
+
+            case 'Firefox':
+                $browserIcon  = 'fa-';
+                break;
+
+            case 'Opera':
+                $browserIcon  = 'fa-opera';
+                break;
+
+            case 'Safari':
+                $browserIcon  = 'fa-safari';
+                break;
+
+            case 'Internet Explorer':
+                $browserIcon  = 'fa-edge';
+                break;
+
+            default:
+                $browserIcon  = 'fa-';
+                break;
+        }
+
+        $data = [
+            'platformIcon' => $platformIcon,
+            'browserIcon' => $browserIcon,
+        ];
+
+        return $data;
+    }
+
+    /**
+     * Get the user's agents details.
+     *
+     * @param $ua
+     *
+     * @return array
+     */
+    public static function details($ua)
+    {
+        $ua = is_null($ua) ? $_SERVER['HTTP_USER_AGENT'] : $ua;
+        // Enumerate all common platforms, this is usually placed in braces (order is important! First come first serve..)
+        $platforms = 'Windows|iPad|iPhone|Macintosh|Android|BlackBerry|Unix|Linux';
+        // All browsers except MSIE/Trident and..
+        // NOT for browsers that use this syntax: Version/0.xx Browsername
+        $browsers = 'Firefox|Chrome|Opera';
+        // Specifically for browsers that use this syntax: Version/0.xx Browername
+        $browsers_v = 'Safari|Mobile'; // Mobile is mentioned in Android and BlackBerry UA's
+        // Fill in your most common engines..
+        $engines = 'Gecko|Trident|Webkit|Presto';
+        // Regex the crap out of the user agent, making multiple selections and..
+        $regex_pat = "/((Mozilla)\/[\d\.]+|(Opera)\/[\d\.]+)\s\(.*?((MSIE)\s([\d\.]+).*?(Windows)|({$platforms})).*?\s.*?({$engines})[\/\s]+[\d\.]+(\;\srv\:([\d\.]+)|.*?).*?(Version[\/\s]([\d\.]+)(.*?({$browsers_v})|$)|(({$browsers})[\/\s]+([\d\.]+))|$).*/i";
+        // .. placing them in this order, delimited by |
+        $replace_pat = '$7$8|$2$3|$9|${17}${15}$5$3|${18}${13}$6${11}';
+        // Run the preg_replace .. and explode on |
+        $ua_array = explode('|', preg_replace($regex_pat, $replace_pat, $ua, PREG_PATTERN_ORDER));
+        if (count($ua_array) > 1) {
+            $return['platform'] = $ua_array[0];  // Windows / iPad / MacOS / BlackBerry
+            $return['type'] = $ua_array[1];  // Mozilla / Opera etc.
+            $return['renderer'] = $ua_array[2];  // WebKit / Presto / Trident / Gecko etc.
+            $return['browser'] = $ua_array[3];  // Chrome / Safari / MSIE / Firefox
+            /*
+               Not necessary but this will filter out Chromes ridiculously long version
+               numbers 31.0.1234.122 becomes 31.0, while a "normal" 3 digit version number
+               like 10.2.1 would stay 10.2.1, 11.0 stays 11.0. Non-match stays what it is.
+            */
+            if (preg_match("/^[\d]+\.[\d]+(?:\.[\d]{0,2}$)?/", $ua_array[4], $matches)) {
+                $return['version'] = $matches[0];
+            } else {
+                $return['version'] = $ua_array[4];
+            }
+        } else {
+            return false;
+        }
+        // Replace some browsernames e.g. MSIE -> Internet Explorer
+        switch (strtolower($return['browser'])) {
+            case 'msie':
+            case 'trident':
+                $return['browser'] = 'Internet Explorer';
+                break;
+            case '': // IE 11 is a steamy turd (thanks Microsoft...)
+                if (strtolower($return['renderer']) == 'trident') {
+                    $return['browser'] = 'Internet Explorer';
+                }
+                break;
+        }
+        switch (strtolower($return['platform'])) {
+            case 'android':    // These browsers claim to be Safari but are BB Mobile
+            case 'blackberry': // and Android Mobile
+                if ($return['browser'] == 'Safari' || $return['browser'] == 'Mobile' || $return['browser'] == '') {
+                    $return['browser'] = "{$return['platform']} mobile";
+                }
+                break;
+        }
+        return $return;
     }
 }
