@@ -1,5 +1,5 @@
 <!-- ########## START: LEFT PANEL ########## -->
-<div class="br-logo"><a href=""><span>[</span>{{ env('APP_NAME') }}<span>]</span></a></div>
+<div class="br-logo"><a href="{{ route('layout.index') }}"><span>[</span>{{ env('APP_NAME') }}<span>]</span></a></div>
 <div class="br-sideleft overflow-y-auto">
     <div class="br-sideleft-menu">
 

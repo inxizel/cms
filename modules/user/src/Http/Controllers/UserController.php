@@ -2,6 +2,7 @@
 
 namespace Zent\User\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Zent\User\Models\User;
 use Illuminate\Support\Facades\Session;
@@ -77,9 +78,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request)
+    public function show(Request $request, $id)
     {
-        //
+        if ($id != Auth::guard('web')->id())
+        {
+            abort(404);
+        }
+
+        $user = User::find($id);
+
+        return view('user::backend.profile', compact('user'));
     }
 
     /**
@@ -283,4 +291,29 @@ class UserController extends Controller
             return response()->json(['err'  =>  true, 'msg' =>  $e->getMessage()]);
         }
     }
+
+    public function profile(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            parse_str($request->data, $data);
+
+            if ($data['user_id'] != Auth::guard('web')->id())
+            {
+                return response()->json(['err' => true, 'msg' => trans('global.not_user')]);
+            }
+
+            User::find($data['user_id'])->update($data);
+            $msg = trans('global.update_success');
+
+            DB::commit();
+            return response()->json(['err' => false, 'msg' => $msg]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response()->json(['err' => true, 'msg' => $e->getMessage()]);
+        }
+
+    }
+
 }

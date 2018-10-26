@@ -148,7 +148,7 @@ $(document).ready(function () {
             }
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'display_name' }, { data: 'description' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'display_name' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
     });
 
     $('#permission_role_table').on('click', '.btn-permission-role', function () {

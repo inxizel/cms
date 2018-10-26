@@ -167,13 +167,13 @@
             </div>
             <div class="dropdown">
                 <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                    <span class="logged-name hidden-md-down">@lang('global.admin')</span>
+                    <span class="logged-name hidden-md-down">{{ Auth::guard('web')->user()->name }}</span>
                     <img src="{{ asset('images/user.jpg') }}" class="wd-32 rounded-circle" alt="">
                     <span class="square-10 bg-success"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-header wd-200">
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href=""><i class="icon ion-ios-person"></i> @lang('global.profile')</a></li>
+                        <li><a href="{{ route('user.show', Auth::guard('web')->id()) }}"><i class="icon ion-ios-person"></i> @lang('global.profile')</a></li>
                         <li><a href=""><i class="icon ion-ios-gear"></i> @lang('global.setting')</a></li>
                         <li><a href="{{ route('user.logout') }}"><i class="icon ion-power"></i> @lang('global.sign_out')</a></li>
                     </ul>

@@ -17,12 +17,15 @@ Route::group(['namespace' => 'Zent\User\Http\Controllers', 'middleware' => ['loc
         Route::get('login', 'LoginController@showLoginForm')->name('user.showLoginForm');
         Route::post('login', 'LoginController@login')->name('user.login');
         Route::get('logout', 'LoginController@logout')->name('user.logout');
-        Route::post('/user/get-list-user', 'UserController@getListUser')->name('user.getListUser');
-        Route::post('/user/check-unique-email', 'UserController@checkUniqueEmail')->name('user.checkUniqueEmail');
-        Route::get('/user/role/{user}', 'UserController@roleUser')->name('user.roleUser');
-        Route::post('/user/get-list-role-user', 'UserController@getListRoleUser')->name('user.getListRoleUser');
-        Route::post('/user/update-role-user', 'UserController@updateRoleUser')->name('user.updateRoleUser');
 
+        Route::prefix('user')->group(function () {
+            Route::post('get-list-user', 'UserController@getListUser')->name('user.getListUser');
+            Route::post('check-unique-email', 'UserController@checkUniqueEmail')->name('user.checkUniqueEmail');
+            Route::get('role/{user}', 'UserController@roleUser')->name('user.roleUser');
+            Route::post('get-list-role-user', 'UserController@getListRoleUser')->name('user.getListRoleUser');
+            Route::post('update-role-user', 'UserController@updateRoleUser')->name('user.updateRoleUser');
+            Route::post('profile', 'UserController@profile')->name('user.profile');
+        });
     });
 
     /**
