@@ -316,6 +316,70 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('#frm_profile').on('submit', function (event) {
+        event.preventDefault();
+
+        var form = $('#frm_profile');
+
+        $('span[class=error]').remove();
+
+        if (!form.valid()) {
+            return false;
+        }
+
+        updateProfile(form.serialize());
+    });
+
+    $('#frm_profile').validate({
+        errorElement: "span",
+        rules: {
+            name: {
+                required: true
+            },
+            birthday: {
+                required: true
+            },
+            mobile: {
+                required: true
+            }
+        },
+        messages: {
+            name: {
+                required: Lang.get('user.please_enter_name')
+            },
+            birthday: {
+                required: Lang.get('user.please_enter_birthday')
+            },
+            mobile: {
+                required: Lang.get('user.please_enter_mobile')
+            }
+        }
+    });
+
+    function updateProfile(data) {
+
+        $.ajax({
+            url: app_url + 'admin/user/profile',
+            type: 'POST', // GET, POST, PUT, PATCH, DELETE,
+            data: {
+                data: data
+            },
+            success: function success(res) {
+                if (!res.err) {
+                    toastr.success(res.msg);
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 2000);
+
+                    $('#btn-profile').attr("disabled", "disabled");
+                } else {
+                    toastr.error(res.msg);
+                }
+            }
+        });
+    }
 });
 
 /***/ })

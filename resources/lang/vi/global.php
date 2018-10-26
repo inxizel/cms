@@ -100,5 +100,6 @@ return [
     'user_agent'    =>  'Thiết bị',
     'customer_normal'   =>  'Khách thường',
     'customer_vip'  =>  'Khách vip',
-    'route' =>  'Đường dẫn'
+    'route' =>  'Đường dẫn',
+    'not_user'  =>  'Người dùng không chính xác. Vui lòng thử lại.'
 ];

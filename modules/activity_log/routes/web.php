@@ -7,7 +7,7 @@
 |
 */
 
-Route::group(['namespace' => 'Zent\ActivityLog\Http\Controllers', 'middleware' => ['locale', 'activity']], function () {
+Route::group(['namespace' => 'Zent\ActivityLog\Http\Controllers', 'middleware' => ['locale']], function () {
 
     /**
      * Group route admin.
