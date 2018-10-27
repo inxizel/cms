@@ -4,7 +4,7 @@ Project is Laravel CMS by Zent Software.
 - Laravel
 - Version: 5.7
 # Server Requirements
-- PHP >= 5.6.4
+- PHP >= 7.1
 - OpenSSL PHP Extension
 - PDO PHP Extension
 - Mbstring PHP Extension
@@ -14,11 +14,14 @@ Project is Laravel CMS by Zent Software.
 - Bower
 - HMVC
 # Useage
-- Step 1: Clone project: git clone git@bitbucket.org:DaoThanhTung/zentcms.git
-- Step 2: Duplicate .envexample file, then rename to .env and run: composer update
-- Step 3: Create database and run php artisan key:generate
-- Step 3: npm install
-- Step 4: bower install
-- Step 5: php artisan migrate
-- Step 6: php artisan db:seed
-- Step 7: npm run dev
+- git clone git@bitbucket.org:DaoThanhTung/zentcms.git
+- create file .env from file .envexample and database
+- php artisan key:generate
+- composer update
+- php artisan migrate && php artisan db:seed
+- npm install
+- bower install
+- npm run dev
+# Contacts
+- Zent Software
+- Floor 6, Trai ca, Truong Dinh, Hoang Mai, Ha noi.

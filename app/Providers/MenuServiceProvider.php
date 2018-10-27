@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Module;
 use View;
+use Illuminate\Support\Facades\Schema;
 
 class MenuServiceProvider extends ServiceProvider
 {
@@ -15,13 +16,16 @@ class MenuServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $menu_functions = Module::getListMenuFunction();
-        $menu_managers = Module::getListMenuManager();
-        $menu_plugins = Module::getListMenuPlugin();
+        if (Schema::hasTable('modules'))
+        {
+            $menu_functions = Module::getListMenuFunction();
+            $menu_managers = Module::getListMenuManager();
+            $menu_plugins = Module::getListMenuPlugin();
 
-        View::share('menu_functions', $menu_functions);
-        View::share('menu_managers', $menu_managers);
-        View::share('menu_plugins', $menu_plugins);
+            View::share('menu_functions', $menu_functions);
+            View::share('menu_managers', $menu_managers);
+            View::share('menu_plugins', $menu_plugins);
+        }
     }
 
     /**
