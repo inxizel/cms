@@ -9,6 +9,10 @@ Project is Laravel CMS by Zent Software.
 - PDO PHP Extension
 - Mbstring PHP Extension
 - Tokenizer PHP Extension
+# Packages
+- Laravel Mix
+- Bower
+- HMVC
 # Useage
 - Step 1: Clone project: git clone git@bitbucket.org:DaoThanhTung/zentcms.git
 - Step 2: Duplicate .envexample file, then rename to .env
