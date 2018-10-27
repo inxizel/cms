@@ -16,11 +16,12 @@ Project is Laravel CMS by Zent Software.
 # Useage
 - git clone git@bitbucket.org:DaoThanhTung/zentcms.git
 - create file .env from file .envexample and database
-- php artisan key:generate
 - composer update
+- php artisan key:generate
 - php artisan migrate && php artisan db:seed
 - npm install
 - bower install
+- composer dump-autoload
 - npm run dev
 # Contacts
 - Zent Software
