@@ -3,12 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 
 class Module extends Model
 {
-    use SoftDeletes;
     /**
      * Table name
      * @var string
@@ -19,7 +17,7 @@ class Module extends Model
      * List column name
      * @var array
      */
-    protected $fillable = ['name', 'status', 'module_category_id'];
+    protected $fillable = ['name', 'status', 'module_category_id', 'display_name', 'note'];
 
     /**
      * Deleted at
@@ -206,5 +204,37 @@ class Module extends Model
     public static function notifyActiveToUse()
     {
         return '-- Please activate this module to use --';
+    }
+
+    public static function getListMenuFunction()
+    {
+        return self::where([
+                        'module_category_id' => 1,
+                        'status'             => 1
+                    ])->orderBy('id', 'desc')->get();
+    }
+
+    public static function getListMenuManager()
+    {
+        return self::where([
+                        'module_category_id' => 2,
+                        'status'             => 1
+                    ])->get();
+    }
+
+    public static function getListMenuPlugin()
+    {
+        return self::where([
+                        'module_category_id' => 3,
+                        'status'             => 1
+                    ])->orderBy('id', 'desc')->get();
+    }
+
+    /**
+     *
+     */
+    public static function getDisplayName($name)
+    {
+        return self::where('name', $name)->first()->display_name;
     }
 }

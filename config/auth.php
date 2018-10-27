@@ -72,7 +72,8 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => Zent\User\Models\User::class,
+            'table' => 'users',
         ],
 
         // 'users' => [
