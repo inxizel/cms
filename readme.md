@@ -15,7 +15,7 @@ Project is Laravel CMS by Zent Software.
 - HMVC
 # Useage
 - Step 1: Clone project: git clone git@bitbucket.org:DaoThanhTung/zentcms.git
-- Step 2: Duplicate .envexample file, then rename to .env
+- Step 2: Duplicate .envexample file, then rename to .env and run: composer update
 - Step 3: Create database and run php artisan key:generate
 - Step 3: npm install
 - Step 4: bower install
