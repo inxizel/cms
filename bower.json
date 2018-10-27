@@ -22,7 +22,6 @@
     "font-awesome": "4.7.0",
     "jquery-switchbutton": "*",
     "popper.js": "^1.14.4",
-    "bootstrap": "^4.1.3",
     "moment": "^2.22.2",
     "jquery-ui": "^1.12.1",
     "jquery.sparkline.bower": "^2.1.2",
@@ -37,6 +36,7 @@
     "datatables": "1.10.16",
     "toastr": "^2.1.3",
     "jquery-validation": "^1.18.0",
-    "datetimepicker": "jquery-datetime-picker#^2.5.20"
+    "datetimepicker": "jquery-datetime-picker#^2.5.20",
+    "bootstrap": "4.0.0"
   }
 }
