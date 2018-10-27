@@ -18,6 +18,7 @@ class CreateModulesTable extends Migration
             $table->string('name')->nullable();
             $table->string('display_name')->nullable();
             $table->tinyInteger('status')->comment('1: active, 0: deactive')->default(0);
+            $table->text('note')->nullable();
             $table->tinyInteger('module_category_id')->comment('Category module')->default(1)->comment('0: plugin, 1:manager, 2: system');
             $table->timestamps();
             $table->softDeletes();
