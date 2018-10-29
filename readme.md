@@ -18,7 +18,8 @@ Project is Laravel CMS by Zent Software.
 - create file .env from file .envexample and database
 - composer update
 - php artisan key:generate
-- php artisan migrate && php artisan db:seed
+- php artisan migrate
+- php artisan db:seed
 - npm install
 - bower install
 - composer dump-autoload
