@@ -15,11 +15,14 @@
         <hr> <br>
 
         {{-- Bg content --}}
-        <div class="col-sm-1 col-md-1 pd-0 mg-b-20">
-            <button class="btn btn-info btn-block" onclick="window.location='{{ route('customer.create') }}'">
-                <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
-                @lang('global.add')
-            </button>
+        <div class="col-sm-2 col-md-2 pd-0 mg-b-20">
+            {{--@if (Entrust::can['customer-create'])--}}
+            @permission('customer-create')
+                <button class="btn btn-info btn-block" onclick="window.location='{{ route('customer.create') }}'">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i> &nbsp;
+                    @lang('global.add')
+                </button>
+            @endpermission
         </div>
 
         <div class="rounded table-responsive">

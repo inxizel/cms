@@ -4,11 +4,11 @@ namespace Zent\Customer\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Zent\Customer\Models\Customer;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use App\Models\Module;
-use View;
+use Illuminate\Support\Facades\View;
+use Entrust;
 
 class CustomerController extends Controller
 {
@@ -183,11 +183,15 @@ class CustomerController extends Controller
             ->addColumn('action', function($customer) {
                 $txt = "";
 
-//                $txt .= '<button data-id="'.$customer->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-role" data-tooltip="tooltip" data-placement="left" title="'.trans('global.role').'"/><i class="fa fa-handshake-o" aria-hidden="true"></i></i></button>';
+                if (Entrust::can('customer-edit'))
+                {
+                    $txt .= '<button data-id="'.$customer->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                }
 
-                $txt .= '<button data-id="'.$customer->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
-
-                $txt .= '<button data-id="'.$customer->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                if (Entrust::can('customer-delete'))
+                {
+                    $txt .= '<button data-id="'.$customer->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="top" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                }
 
                 return $txt;
             })

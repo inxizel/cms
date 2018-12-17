@@ -12,6 +12,7 @@ use Zent\Role\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
 use Zent\Permission\Models\Permission;
 use Zent\Permission\Models\PermissionRole;
+use Entrust;
 
 class RoleController extends Controller
 {
@@ -137,11 +138,20 @@ class RoleController extends Controller
             ->addColumn('action', function ($role) {
                 $txt = "";
 
-                $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-permission" data-tooltip="tooltip" data-placement="top" title="'.trans('global.permission').'"/><i class="fa fa-sliders" aria-hidden="true"></i></button>';
+                if (Entrust::can('role-permission-role'))
+                {
+                    $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-permission" data-tooltip="tooltip" data-placement="top" title="'.trans('global.permission').'"/><i class="fa fa-sliders" aria-hidden="true"></i></button>';
+                }
 
-                $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                if (Entrust::can('role-edit'))
+                {
+                    $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                }
 
-                $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="top" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                if (Entrust::can('role-delete'))
+                {
+                    $txt .= '<button data-id="'.$role->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="top" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                }
 
                 return $txt;
             })
@@ -181,7 +191,10 @@ class RoleController extends Controller
             ->addColumn('action', function ($permission){
                 $txt = "";
 
-                $txt .= '<input type="checkbox" name="" data-id="'.$permission->id.'" class="btn-permission-role" '.$permission->checked.'>';
+                if (Entrust::can('role-permission-update'))
+                {
+                    $txt .= '<input type="checkbox" name="" data-id="'.$permission->id.'" class="btn-permission-role" '.$permission->checked.'>';
+                }
 
                 return $txt;
             })

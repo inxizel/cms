@@ -9,6 +9,7 @@ use App\Models\ModuleCategory;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use View;
+use Entrust;
 
 class ModuleController extends Controller
 {
@@ -146,9 +147,15 @@ class ModuleController extends Controller
                 ->addColumn('action', function($module) {
                     $txt = "";
 
-                    $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="left" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                    if (Entrust::can('module-edit'))
+                    {
+                        $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="left" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                    }
 
-                    $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    if (Entrust::can('module-delete'))
+                    {
+                        $txt .= '<button data-id="'.$module->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                    }
 
                     return $txt;
                 })

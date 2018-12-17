@@ -15,7 +15,7 @@
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.all')</label>
             <a href="{{ route('layout.index') }}" class="br-menu-link {{ request()->is('admin') ? 'active' : '' }}">
                 <div class="br-menu-item">
-                    <i class="fa fa-home tx-16" aria-hidden="true"></i>
+                    <i class="fa fa-home tx-18" aria-hidden="true"></i>
                     <span class="menu-item-label">@lang('global.dashboard')</span>
                 </div><!-- menu-item -->
             </a><!-- br-menu-link -->
@@ -31,24 +31,71 @@
             @endforeach @endif
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.managers')</label>
-            @if( isset($menu_managers)) @foreach($menu_managers as $menu_manager)
-                <a href="/admin/{{$menu_manager->name}}" class="br-menu-link {{ request()->is("admin/$menu_manager->name*") ? 'active' : '' }}">
+
+            @permission('customer-view')
+                <a href="{{ route('customer.index') }}" class="br-menu-link {{ request()->is("admin/customer*") ? 'active' : '' }}">
                     <div class="br-menu-item">
-                        <i class="fa fa-folder tx-16" aria-hidden="true"></i>
-                        <span class="menu-item-label">{{ ucfirst($menu_manager->display_name) }}</span>
+                        <i class="fa fa-grav tx-16" aria-hidden="true"></i>
+                        <span class="menu-item-label">{{ App\Models\Module::getDisplayName('customer') }}</span>
                     </div><!-- menu-item -->
                 </a><!-- br-menu-link -->
-            @endforeach @endif
+            @endpermission
+
+            @permission('user-view')
+            <a href="{{ route('user.index') }}" class="br-menu-link {{ request()->is("admin/user*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-user tx-22" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('user') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
+
+            @permission('module-view')
+            <a href="{{ route('module.index') }}" class="br-menu-link {{ request()->is("admin/module*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-tasks tx-16" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('module') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.plugins')</label>
-            @if( isset($menu_plugins)) @foreach($menu_plugins as $menu_plugin)
-                <a href="/admin/{{$menu_plugin->name}}" class="br-menu-link {{ request()->is("admin/$menu_plugin->name*") ? 'active' : '' }}">
-                    <div class="br-menu-item">
-                        <i class="fa fa-cog tx-16" aria-hidden="true"></i>
-                        <span class="menu-item-label">{{ ucfirst($menu_plugin->display_name) }}</span>
-                    </div><!-- menu-item -->
-                </a><!-- br-menu-link -->
-            @endforeach @endif
+
+            @permission('role-view')
+            <a href="{{ route('role.index') }}" class="br-menu-link {{ request()->is("admin/role*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-rocket tx-16" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('role') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
+
+            @permission('permission-view')
+            <a href="{{ route('permission.index') }}" class="br-menu-link {{ request()->is("admin/permission*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-handshake-o tx-12" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('permission') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
+
+            @permission('activity-log-view')
+            <a href="{{ route('activity_log.index') }}" class="br-menu-link {{ request()->is("admin/activity_log*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-trophy tx-16" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('activity_log') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
+
+            @permission('system-log-view')
+            <a href="{{ route('system_log.index') }}" class="br-menu-link {{ request()->is("admin/system_log*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-cog tx-16" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('system_log') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
         </div><!-- br-sideleft-menu -->
 
         <br>
@@ -85,8 +132,8 @@
             </div>
             <div class="footer-right d-flex align-items-center">
             <span class="tx-uppercase mg-r-10">Share:</span>
-            <a target="_blank" class="pd-x-5" href="https://www.facebook.com/sharer/sharer.php?u=http%3A//themepixels.me/bracket/intro"><i class="fa fa-facebook tx-20"></i></a>
-            <a target="_blank" class="pd-x-5" href="https://twitter.com/home?status=Bracket,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/bracket/intro"><i class="fa fa-twitter tx-20"></i></a>
+            <a target="_blank" class="pd-x-5" href="https://www.facebook.com/th4nhtunq"><i class="fa fa-facebook tx-20"></i></a>
+            <a target="_blank" class="pd-x-5" href="https://github.com/tungsoi"><i class="fa fa-github tx-20"></i></a>
             </div>
         </footer>
     </div><!-- br-mainpanel -->

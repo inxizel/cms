@@ -19,7 +19,8 @@ class UsersTableSeeder extends Seeder
             'password'  =>  bcrypt(123456),
             'status'    =>  1,
             'type'      =>  1,
-            'name'      =>  'Super Admin'
+            'name'      =>  'Super Admin',
+            'gender'    =>  1
         ]);
 
         User::create([
@@ -27,7 +28,8 @@ class UsersTableSeeder extends Seeder
             'password'  =>  bcrypt(123456),
             'status'    =>  1,
             'type'      =>  1,
-            'name'      =>  'Admin'
+            'name'      =>  'Admin',
+            'gender'    =>  1
         ]);
     }
 }

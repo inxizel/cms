@@ -137,6 +137,9 @@
        $(this).parent().css('background', '#4fbe79');
        $(this).next().css('left', '30px');
     });
+
+    $('.nav-link').click();
+
 </script>
 
 @if (Session::has('create_success'))

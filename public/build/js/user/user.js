@@ -80,15 +80,15 @@ $(document).ready(function () {
 
     $('#user_table').DataTable({
         autoWidth: true,
-        processing: true,
-        serverSide: true,
+        processing: false,
+        serverSide: false,
         ordering: false,
         ajax: {
             url: app_url + 'admin/user/get-list-user',
             type: 'post'
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'email' }, { data: 'birthday', className: 'tx-center' }, { data: 'gender', className: 'tx-center' }, { data: 'type', className: 'tx-center' }, { data: 'status', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+        columns: [{ data: 'DT_RowIndex', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'email' }, { data: 'birthday', className: 'tx-center' }, { data: 'gender', className: 'tx-center' }, { data: 'type', className: 'tx-center' }, { data: 'status', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
     });
 
     $('#frm_create_user').on('submit', function (event) {
@@ -263,9 +263,13 @@ $(document).ready(function () {
                     },
                     success: function success(res) {
                         if (!res.err) {
+                            toastr.success(res.msg);
+
                             setTimeout(function () {
                                 window.location.reload();
-                            }, 0);
+                            }, 2000);
+                        } else {
+                            toastr.error(res.msg);
                         }
                     }
                 });
@@ -290,7 +294,7 @@ $(document).ready(function () {
             }
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center' }, { data: 'display_name' }, { data: 'description', className: 'tx-center' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
+        columns: [{ data: 'DT_RowIndex', className: 'tx-center' }, { data: 'display_name' }, { data: 'description', className: 'tx-center' }, { data: 'created_at', className: 'tx-center' }, { data: 'action', className: 'tx-center' }]
     });
 
     $('#role_user_table').on('click', '.btn-role-user', function () {
@@ -299,7 +303,7 @@ $(document).ready(function () {
         var value = $(this).is(":checked") ? 1 : 0;
 
         $.ajax({
-            url: app_url + '/admin/user/update-role-user',
+            url: app_url + 'admin/user/update-role-user',
             type: 'POST', // GET, POST, PUT, PATCH, DELETE,
             dataType: "JSON",
             data: {

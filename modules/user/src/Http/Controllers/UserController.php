@@ -12,6 +12,7 @@ use App\Models\Module;
 use View;
 use Zent\Role\Models\RoleUser;
 use Zent\Role\Models\Role;
+use Entrust;
 
 class UserController extends Controller
 {
@@ -135,9 +136,9 @@ class UserController extends Controller
     {
         User::find($request->id)->delete();
 
-        Session::flash('delete_success', trans('global.delete_success'));
+        $msg = trans('global.delete_success');
 
-        return response()->json([ 'err' => false ]);
+        return response()->json([ 'err' => false, 'msg' => $msg ]);
     }
 
     /**
@@ -186,11 +187,20 @@ class UserController extends Controller
             ->addColumn('action', function($user) {
                 $txt = "";
 
-                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-role" data-tooltip="tooltip" data-placement="left" title="'.trans('global.role').'"/><i class="fa fa-handshake-o" aria-hidden="true"></i></i></button>';
+                if (Entrust::can('user-role-view'))
+                {
+                    $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-success pd-0 wd-30 ht-20 btn-role" data-tooltip="tooltip" data-placement="left" title="'.trans('global.role').'"/><i class="fa fa-handshake-o" aria-hidden="true"></i></i></button>';
+                }
 
-                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                if (Entrust::can('user-edit'))
+                {
+                    $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-warning pd-0 wd-30 ht-20 btn-edit" data-tooltip="tooltip" data-placement="top" title="'.trans('global.edit').'"/><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                }
 
-                $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                if (Entrust::can('user-delete'))
+                {
+                    $txt .= '<button data-id="'.$user->id.'" href="#" type="button" class="btn btn-danger pd-0 wd-30 ht-20 btn-delete" data-tooltip="tooltip" data-placement="right" title="'.trans('global.delete').'"/><i class="fa fa-trash" aria-hidden="true"></i></button>';
+                }
 
                 return $txt;
             })
@@ -245,7 +255,10 @@ class UserController extends Controller
             ->addColumn('action', function ($role){
                 $txt = "";
 
-                $txt .= '<input type="checkbox" name="" data-id="'.$role->id.'" class="btn-role-user" '.$role->checked.'>';
+                if (Entrust::can('user-role-update'))
+                {
+                    $txt .= '<input type="checkbox" name="" data-id="'.$role->id.'" class="btn-role-user" '.$role->checked.'>';
+                }
 
                 return $txt;
             })

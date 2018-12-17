@@ -23,14 +23,14 @@ class ModulesTableSeeder extends Seeder
 
         Module::create([
             'name'  =>  'customer',
-            'display_name'  =>  'Customer',
+            'display_name'  =>  'Khách hàng',
             'module_category_id'    =>  2,
             'status'    =>  1
         ]);
 
         Module::create([
             'name'  =>  'user',
-            'display_name'  =>  'User',
+            'display_name'  =>  'Quản trị viên',
             'module_category_id'    =>  2,
             'status'    =>  1
         ]);
@@ -44,28 +44,28 @@ class ModulesTableSeeder extends Seeder
 
         Module::create([
             'name'  =>  'role',
-            'display_name'  =>  'Role',
+            'display_name'  =>  'Vai trò',
             'module_category_id'    =>  3,
             'status'    =>  1
         ]);
 
         Module::create([
             'name'  =>  'permission',
-            'display_name'  =>  'Permission',
+            'display_name'  =>  'Quyền hạn',
             'module_category_id'    =>  3,
             'status'    =>  1
         ]);
 
         Module::create([
             'name'  =>  'system_log',
-            'display_name'  =>  'System log',
+            'display_name'  =>  'Log hệ thống',
             'module_category_id'    =>  3,
-            'status'    =>  1
+            'status'    =>  0
         ]);
 
         Module::create([
             'name'  =>  'activity_log',
-            'display_name'  =>  'Activity log',
+            'display_name'  =>  'Lịch sử hoạt động',
             'module_category_id'    =>  3,
             'status'    =>  1
         ]);

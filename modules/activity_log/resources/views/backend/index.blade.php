@@ -53,7 +53,7 @@
                 },
                 searching: true,
                 columns: [
-                    {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
+                    {data: 'DT_RowIndex', className: 'tx-center', searchable: false},
                     {data: 'ipAddress', className: 'tx-center'},
                     {data: 'userId'},
                     // {data: 'userType'},

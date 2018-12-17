@@ -88,7 +88,7 @@ $(document).ready(function () {
             type: 'post'
         },
         searching: true,
-        columns: [{ data: 'DT_Row_Index', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'display_name' }, { data: 'created_at', className: 'tx-center' }]
+        columns: [{ data: 'DT_RowIndex', className: 'tx-center', searchable: false }, { data: 'name' }, { data: 'display_name' }, { data: 'created_at', className: 'tx-center' }]
     });
 });
 

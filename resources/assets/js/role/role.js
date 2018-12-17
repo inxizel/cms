@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
         searching: true,
         columns: [
-            {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
+            {data: 'DT_RowIndex', className: 'tx-center', searchable: false},
             {data: 'display_name'},
             {data: 'description'},
             {data: 'created_at', className: 'tx-center'},
@@ -51,7 +51,7 @@ $(document).ready(function () {
                     success: function (res) {
                         // console.log(res);
                         if (!res.err) {
-                            toastr.error(res.msg);
+                            toastr.success(res.msg);
 
                             $('#role_table').DataTable().ajax.reload();
                         }
@@ -75,7 +75,7 @@ $(document).ready(function () {
         },
         searching: true,
         columns: [
-            {data: 'DT_Row_Index', className: 'tx-center', searchable: false},
+            {data: 'DT_RowIndex', className: 'tx-center', searchable: false},
             {data: 'name'},
             {data: 'display_name'},
             {data: 'created_at', className: 'tx-center'},
@@ -89,7 +89,7 @@ $(document).ready(function () {
         var value = $(this).is(":checked") ? 1 : 0;
 
         $.ajax({
-            url: app_url + '/admin/role/update-permission-role',
+            url: app_url + 'admin/role/update-permission-role',
             type: 'POST',// GET, POST, PUT, PATCH, DELETE,
             dataType: "JSON",
             data: {

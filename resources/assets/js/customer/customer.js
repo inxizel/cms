@@ -11,7 +11,7 @@ $(document).ready(function () {
         },
         searching: true,
         columns: [
-            { data: 'DT_Row_Index', className: 'tx-center', searchable: false},
+            { data: 'DT_RowIndex', className: 'tx-center', searchable: false},
             { data: 'name'},
             { data: 'email'},
             { data: 'birthday', className: 'tx-center'},
