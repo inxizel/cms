@@ -1,5 +1,5 @@
 # Zent Laravel CMS
-Project is Laravel CMS by Zent Software.
+Project is Laravel CMS by TungSoi
 #Framework
 - Laravel
 - Version: 5.7
@@ -14,7 +14,7 @@ Project is Laravel CMS by Zent Software.
 - Bower
 - HMVC
 # Useage
-- git clone git@bitbucket.org:DaoThanhTung/zentcms.git
+- git clone git@bitbucket.org:DaoThanhTung/chidung.git
 - create file .env from file .envexample and database
 - composer update
 - php artisan key:generate
@@ -25,5 +25,5 @@ Project is Laravel CMS by Zent Software.
 - composer dump-autoload
 - npm run dev
 # Contacts
-- Zent Software
-- Floor 6, Trai ca, Truong Dinh, Hoang Mai, Ha noi.
+- Dao Thanh Tung
+- https://github.com/tungsoi
