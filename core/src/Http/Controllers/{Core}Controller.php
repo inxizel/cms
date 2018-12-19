@@ -80,9 +80,9 @@ class {Core}Controller extends Controller
      */
     public function edit($id)
     {
-        ${core} = {Core}::find($id);
+        ${core_snake_case} = {Core}::find($id);
 
-        return view('{core}::backend.edit', compact('{core}', 'id'));
+        return view('{core}::backend.edit', compact('{core_snake_case}', 'id'));
     }
 
     /**
