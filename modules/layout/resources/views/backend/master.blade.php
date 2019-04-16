@@ -32,14 +32,14 @@
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.managers')</label>
 
-            @permission('customer-view')
+            {{-- @permission('customer-view')
                 <a href="{{ route('customer.index') }}" class="br-menu-link {{ request()->is("admin/customer*") ? 'active' : '' }}">
                     <div class="br-menu-item">
                         <i class="fa fa-grav tx-16" aria-hidden="true"></i>
                         <span class="menu-item-label">{{ App\Models\Module::getDisplayName('customer') }}</span>
                     </div><!-- menu-item -->
                 </a><!-- br-menu-link -->
-            @endpermission
+            @endpermission --}}
 
             @permission('user-view')
             <a href="{{ route('user.index') }}" class="br-menu-link {{ request()->is("admin/user*") ? 'active' : '' }}">

@@ -14,7 +14,10 @@ Route::group([ 'namespace' => 'Zent\Layout\Http\Controllers', 'middleware' => ['
     /**
      * Group route admin
      */
-    Route::get('/', 'LayoutController@index')->name('layout.index');
+    // Route::get('/', 'LayoutController@index')->name('layout.index');
+    Route::get('/', function() {
+        return view('welcome');
+    });
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('', 'LayoutController@index')->name('layout.index');
