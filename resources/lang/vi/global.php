@@ -86,7 +86,7 @@ return [
     'description'   =>  'Miêu tả',
     'list'  =>  'Danh sách',
     'permission'    =>  'Quyền hạn',
-    'role'  =>  'Vai trò',
+    'role'  =>  'Nhóm quền hạn',
     'level' =>  'Mức độ',
     'context'   =>  'Môi trường',
     'info'  =>  'Thông tin',

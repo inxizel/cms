@@ -41,14 +41,7 @@
                 </a><!-- br-menu-link -->
             @endpermission --}}
 
-            @permission('user-view')
-            <a href="{{ route('user.index') }}" class="br-menu-link {{ request()->is("admin/user*") ? 'active' : '' }}">
-                <div class="br-menu-item">
-                    <i class="fa fa-user tx-22" aria-hidden="true"></i>
-                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('user') }}</span>
-                </div><!-- menu-item -->
-            </a><!-- br-menu-link -->
-            @endpermission
+            
 
             @permission('module-view')
             <a href="{{ route('module.index') }}" class="br-menu-link {{ request()->is("admin/module*") ? 'active' : '' }}">
@@ -60,7 +53,15 @@
             @endpermission
 
             <label class="sidebar-label pd-x-15 mg-t-20">@lang('global.plugins')</label>
-
+            
+            @permission('user-view')
+            <a href="{{ route('user.index') }}" class="br-menu-link {{ request()->is("admin/user*") ? 'active' : '' }}">
+                <div class="br-menu-item">
+                    <i class="fa fa-user tx-22" aria-hidden="true"></i>
+                    <span class="menu-item-label">{{ App\Models\Module::getDisplayName('user') }}</span>
+                </div><!-- menu-item -->
+            </a><!-- br-menu-link -->
+            @endpermission
             @permission('role-view')
             <a href="{{ route('role.index') }}" class="br-menu-link {{ request()->is("admin/role*") ? 'active' : '' }}">
                 <div class="br-menu-item">
@@ -70,16 +71,16 @@
             </a><!-- br-menu-link -->
             @endpermission
 
-            @permission('permission-view')
+          {{--   @permission('permission-view')
             <a href="{{ route('permission.index') }}" class="br-menu-link {{ request()->is("admin/permission*") ? 'active' : '' }}">
                 <div class="br-menu-item">
                     <i class="fa fa-handshake-o tx-12" aria-hidden="true"></i>
                     <span class="menu-item-label">{{ App\Models\Module::getDisplayName('permission') }}</span>
                 </div><!-- menu-item -->
             </a><!-- br-menu-link -->
-            @endpermission
+            @endpermission --}}
 
-            @permission('activity-log-view')
+           {{--  @permission('activity-log-view')
             <a href="{{ route('activity_log.index') }}" class="br-menu-link {{ request()->is("admin/activity_log*") ? 'active' : '' }}">
                 <div class="br-menu-item">
                     <i class="fa fa-trophy tx-16" aria-hidden="true"></i>
@@ -95,7 +96,7 @@
                     <span class="menu-item-label">{{ App\Models\Module::getDisplayName('system_log') }}</span>
                 </div><!-- menu-item -->
             </a><!-- br-menu-link -->
-            @endpermission
+            @endpermission --}}
         </div><!-- br-sideleft-menu -->
 
         <br>

@@ -1,0 +1,8 @@
+{
+    "name": "Lienquan",
+    "namespace": "Zent\\Lienquan\\",
+    "provider": "Zent\\Lienquan\\Providers\\LienquanServiceProvider",
+    "author": "ThanhTung",
+    "version": "1.0",
+    "description": "The description for module lienquan"
+}
